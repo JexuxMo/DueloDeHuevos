@@ -744,12 +744,17 @@ const App = () => {
     }
   };
 
+  /// El AuthProvider se creaba DENTRO del if
+  // if (!user) {
+  //   return (
+  //     <AuthProvider>
+  //       <LoginPage onNavigate={setCurrentPage} />
+  //     </AuthProvider>
+  //   );
+  // }
+  
   if (!user) {
-    return (
-      <AuthProvider>
-        <LoginPage onNavigate={setCurrentPage} />
-      </AuthProvider>
-    );
+    return <LoginPage onNavigate={setCurrentPage} />;
   }
 
   return (
