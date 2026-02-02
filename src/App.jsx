@@ -163,7 +163,7 @@ const LoginPage = ({ onNavigate }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-900 via-yellow-900 to-black flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-yellow-200 to-slate-100 flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         <div className="bg-black bg-opacity-50 backdrop-blur-lg rounded-2xl p-8 border border-yellow-500">
           <div className="text-center mb-8">
@@ -172,7 +172,7 @@ const LoginPage = ({ onNavigate }) => {
             </div>
             <h1 className="text-4xl font-bold text-white mb-2">Duelo de Huevos</h1>
             <p className="text-yellow-300">
-              {isLogin ? '¡Bienvenido de vuelta!' : '¡Únete a la batalla!'}
+              {isLogin ? '¡TCG Online!' : '¡TCG Online!'}
             </p>
           </div>
 
@@ -545,11 +545,18 @@ const DeckBuilderPage = () => {
 };
 
 const CollectionPage = () => {
+  const cardTypes = ['Huevos de Combate', 'Hechizos', 'Trampas', 'Encantamientos Fuertes', 'Encantamientos Débiles'];
+  const [selectedType, setSelectedType] = useState('Todas');
+
   const mockCards = Array(24).fill(null).map((_, i) => ({
     id: i + 1,
     name: `Carta ${i + 1}`,
-    type: i % 3 === 0 ? 'Monster' : i % 3 === 1 ? 'Spell' : 'Trap'
+    type: cardTypes[i % 5]
   }));
+
+  const filteredCards = selectedType === 'Todas'
+    ? mockCards
+    : mockCards.filter(card => card.type === selectedType);
 
   return (
     <div className="p-6">
@@ -562,23 +569,71 @@ const CollectionPage = () => {
         </div>
       </div>
 
-      <div className="mb-6 flex space-x-2">
-        <button className="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 rounded-lg text-white font-bold">
+      <div className="mb-6 flex flex-wrap gap-2">
+        <button
+          onClick={() => setSelectedType('Todas')}
+          className={`px-4 py-2 rounded-lg font-bold transition-colors ${
+            selectedType === 'Todas'
+              ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
+              : 'bg-gray-700 hover:bg-gray-600 text-white'
+          }`}
+        >
           Todas
         </button>
-        <button className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-white">
-          Monstruos
+        <button
+          onClick={() => setSelectedType('Huevos de Combate')}
+          className={`px-4 py-2 rounded-lg font-bold transition-colors ${
+            selectedType === 'Huevos de Combate'
+              ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
+              : 'bg-gray-700 hover:bg-gray-600 text-white'
+          }`}
+        >
+          Huevos de Combate
         </button>
-        <button className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-white">
+        <button
+          onClick={() => setSelectedType('Hechizos')}
+          className={`px-4 py-2 rounded-lg font-bold transition-colors ${
+            selectedType === 'Hechizos'
+              ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
+              : 'bg-gray-700 hover:bg-gray-600 text-white'
+          }`}
+        >
           Hechizos
         </button>
-        <button className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-white">
+        <button
+          onClick={() => setSelectedType('Trampas')}
+          className={`px-4 py-2 rounded-lg font-bold transition-colors ${
+            selectedType === 'Trampas'
+              ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
+              : 'bg-gray-700 hover:bg-gray-600 text-white'
+          }`}
+        >
           Trampas
+        </button>
+        <button
+          onClick={() => setSelectedType('Encantamientos Fuertes')}
+          className={`px-4 py-2 rounded-lg font-bold transition-colors ${
+            selectedType === 'Encantamientos Fuertes'
+              ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
+              : 'bg-gray-700 hover:bg-gray-600 text-white'
+          }`}
+        >
+          Encantamientos Fuertes
+        </button>
+        <button
+          onClick={() => setSelectedType('Encantamientos Débiles')}
+          className={`px-4 py-2 rounded-lg font-bold transition-colors ${
+            selectedType === 'Encantamientos Débiles'
+              ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
+              : 'bg-gray-700 hover:bg-gray-600 text-white'
+          }`}
+        >
+          Encantamientos Débiles
         </button>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {mockCards.map(card => (
+        {filteredCards.map(card => (
           <div
             key={card.id}
             className="bg-gray-800 rounded-lg p-3 border border-yellow-500 hover:border-yellow-400 transition-colors cursor-pointer group"
@@ -758,7 +813,7 @@ const App = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-orange-900 to-black">
+    <div className="min-h-screen bg-gradient-to-br from-slate-400 via-yellow-200 to-slate-400">
       <Navigation 
         currentPage={currentPage} 
         onNavigate={setCurrentPage}
