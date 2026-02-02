@@ -345,6 +345,8 @@ const Navigation = ({ currentPage, onNavigate, onLogout }) => {
 // ==========================================
 // PÁGINAS
 // ==========================================
+
+
 const HomePage = () => {
   const { user } = useAuth();
   const winRate = user.wins + user.losses > 0 
@@ -395,7 +397,7 @@ const HomePage = () => {
   );
 };
 
-const PlayPage = () => {
+const PlayPage = ({ onNavigate }) => {
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold text-white mb-6">Modos de Juego</h1>
@@ -440,7 +442,10 @@ const PlayPage = () => {
           <p className="text-gray-300 mb-4">
             Entrena contra la inteligencia artificial. 3 niveles de dificultad.
           </p>
-          <button className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-bold">
+          <button
+            onClick={() => window.open('gameboard.html', '_blank')}
+            className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-bold"
+          >
             Practicar
           </button>
         </div>
@@ -789,7 +794,7 @@ const App = () => {
       case 'home':
         return <HomePage />;
       case 'play':
-        return <PlayPage />;
+        return <PlayPage onNavigate={setCurrentPage} />;
       case 'deckbuilder':
         return <DeckBuilderPage />;
       case 'collection':
@@ -816,10 +821,11 @@ const App = () => {
     return <LoginPage onNavigate={setCurrentPage} />;
   }
 
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-400 via-yellow-200 to-slate-400">
-      <Navigation 
-        currentPage={currentPage} 
+      <Navigation
+        currentPage={currentPage}
         onNavigate={setCurrentPage}
         onLogout={handleLogout}
       />
