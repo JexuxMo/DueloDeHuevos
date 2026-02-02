@@ -369,6 +369,10 @@ const HomePage = () => {
           <h3 className="text-xl font-bold text-white mb-2">Tus Victorias</h3>
           <p className="text-4xl font-bold text-green-400">{user?.wins}</p>
           <p className="text-sm text-gray-400 mt-2">Win Rate: {winRate}%</p>
+          <div className="mt-3 pt-3 border-t border-gray-700">
+            <h4 className="text-sm font-bold text-red-400 mb-1">Tus Derrotas</h4>
+            <p className="text-2xl font-bold text-red-400">{user?.losses}</p>
+          </div>
         </div>
 
         <div className="bg-gray-800 rounded-xl p-6 border border-purple-500">
