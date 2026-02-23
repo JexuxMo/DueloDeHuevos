@@ -1,90 +1,149 @@
-import { useState } from 'react';
-import { Book, Filter, Plus, Search } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { Plus, Search } from 'lucide-react';
 import { MOCK_DECKS } from '../mocks/decks';
+
+const FILTER_TAGS = ['Tipo', 'Clase', 'Nivel', 'ATK', 'DEF'];
+
+const createCard = (prefix, index) => ({
+  id: `${prefix}-${index + 1}`,
+  name: `Carta ${index + 1}`,
+  serial: `${prefix.toUpperCase()}-${String(index + 1).padStart(3, '0')}`,
+});
 
 export default function DeckBuilderPage() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedDeck, setSelectedDeck] = useState(null);
+  const [selectedDeck, setSelectedDeck] = useState(MOCK_DECKS[0] ?? null);
+  const [selectedCard, setSelectedCard] = useState(null);
+
+  const filteredCards = useMemo(() => Array.from({ length: 10 }, (_, i) => createCard('flt', i)), []);
+  const libraryCards = useMemo(() => Array.from({ length: 30 }, (_, i) => createCard('lib', i)), []);
+  const reserveCards = useMemo(() => Array.from({ length: 10 }, (_, i) => createCard('res', i)), []);
 
   return (
     <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-white">Constructor de Mazos</h1>
-        <button className="flex items-center space-x-2 px-6 py-3 bg-yellow-600 hover:bg-yellow-700 text-white font-bold rounded-lg">
-          <Plus className="w-5 h-5" />
-          <span>Nuevo Mazo</span>
-        </button>
+      <div className="mb-4 grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-4">
+        <div className="bg-gray-800 border border-yellow-500 px-6 py-3 rounded-xl">
+          <h1 className="text-3xl font-black text-white tracking-wide">Constructor de Mazos</h1>
+        </div>
+        <div className="flex justify-start lg:justify-end">
+          <button className="bg-yellow-600 hover:bg-yellow-700 border border-yellow-500 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2">
+            <Plus className="w-5 h-5" />
+            Nuevo Mazo
+          </button>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-1">
-          <div className="bg-gray-800 rounded-xl p-4 border border-yellow-500">
-            <h3 className="text-lg font-bold text-white mb-4">Tus Mazos</h3>
-            <div className="space-y-3">
+      <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-4">
+        <div className="space-y-4">
+          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-4 min-h-[290px]">
+            <div className="space-y-2">
               {MOCK_DECKS.map((deck) => (
-                <div
+                <button
                   key={deck.id}
                   onClick={() => setSelectedDeck(deck)}
-                  className={`p-4 rounded-lg cursor-pointer transition-colors border ${
+                  className={`w-full border px-4 py-2 text-left font-semibold transition-colors ${
                     selectedDeck?.id === deck.id
-                      ? 'bg-yellow-600 border-yellow-400'
-                      : 'bg-gray-700 hover:bg-gray-600 border-gray-600'
+                      ? 'bg-yellow-600 text-white border-yellow-400'
+                      : 'bg-gray-700 text-white border-gray-600 hover:bg-gray-600'
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-bold text-white">{deck.name}</h4>
-                    <span className="text-yellow-400">{deck.cards} cartas</span>
-                  </div>
-                  <div className="text-sm text-gray-300">
-                    {deck.wins}V - {deck.losses}D
-                  </div>
-                </div>
+                  {deck.name}
+                </button>
               ))}
             </div>
-          </div>
+            <div className="mt-10 text-center text-gray-500 text-3xl leading-6">\n\n\n</div>
+          </section>
+
+          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-5 flex items-center justify-center min-h-[300px]">
+            <div className="w-[130px] h-[210px] bg-gradient-to-br from-yellow-100 to-orange-200 border-2 border-yellow-500 rounded-lg flex flex-col items-center justify-center px-2 text-center">
+              <span className="text-4xl">🥚</span>
+              <p className="text-xs mt-2 font-semibold text-gray-900">{selectedCard?.name || 'Sin carta seleccionada'}</p>
+              <p className="text-[10px] text-gray-700">{selectedCard?.serial || '---'}</p>
+            </div>
+          </section>
+
+          <section className="bg-gray-800 border border-yellow-500 rounded-xl overflow-hidden">
+            <button className="w-full border-b border-gray-700 py-2 text-white bg-gray-700 hover:bg-gray-600">Guardar</button>
+            <button className="w-full border-b border-gray-700 py-2 text-white bg-gray-700 hover:bg-gray-600">Paso Atrás</button>
+            <div className="grid grid-cols-2">
+              <button className="border-r border-gray-700 py-2 text-white bg-gray-700 hover:bg-gray-600">Eliminar</button>
+              <button className="py-2 text-white bg-gray-700 hover:bg-gray-600">Limpiar</button>
+            </div>
+          </section>
         </div>
 
-        <div className="lg:col-span-2">
-          <div className="bg-gray-800 rounded-xl p-6 border border-yellow-500">
-            <div className="mb-6">
-              <div className="flex space-x-2">
-                <div className="flex-1 relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                  <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="Buscar cartas..."
-                    className="w-full pl-10 pr-4 py-3 bg-gray-900 border border-yellow-500 rounded-lg text-white focus:outline-none focus:border-yellow-400"
+        <div className="space-y-4">
+          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-4">
+            <div className="flex gap-2 mb-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder="Barra de búsqueda"
+                  className="w-full pl-9 pr-3 py-2 bg-gray-900 border border-yellow-500 rounded-lg text-white placeholder:text-gray-400"
+                />
+              </div>
+              <button className="bg-yellow-600 hover:bg-yellow-700 border border-yellow-500 px-4 rounded-lg font-bold text-white">Buscar</button>
+            </div>
+
+            <div className="overflow-x-auto pb-2">
+              <div className="flex gap-2 min-w-max">
+                {filteredCards.map((card) => (
+                  <button
+                    key={card.id}
+                    onClick={() => setSelectedCard(card)}
+                    className="w-20 h-28 bg-gradient-to-br from-yellow-100 to-orange-200 border-2 border-yellow-500 rounded-lg hover:brightness-110"
+                    title={card.name}
                   />
-                </div>
-                <button className="px-4 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg text-white">
-                  <Filter className="w-5 h-5" />
-                </button>
+                ))}
               </div>
             </div>
 
-            {selectedDeck ? (
-              <div>
-                <h3 className="text-xl font-bold text-white mb-4">Editando: {selectedDeck.name}</h3>
-                <div className="grid grid-cols-4 gap-4">
-                  {[...Array(12)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="aspect-[2/3] bg-gradient-to-br from-yellow-900 to-orange-900 rounded-lg border border-yellow-500 flex items-center justify-center cursor-pointer hover:border-yellow-400 transition-colors"
-                    >
-                      <span className="text-4xl">🥚</span>
-                    </div>
-                  ))}
-                </div>
+            <input type="range" className="w-full accent-yellow-500 my-3" />
+
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+              {FILTER_TAGS.map((tag) => (
+                <button
+                  key={tag}
+                  className="bg-gray-700 hover:bg-gray-600 border border-gray-600 rounded-lg text-white font-bold py-2"
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+          </section>
+
+          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-4">
+            <div className="h-[290px] overflow-y-auto pr-1">
+              <div className="grid grid-cols-5 md:grid-cols-10 gap-2">
+                {libraryCards.map((card) => (
+                  <button
+                    key={card.id}
+                    onClick={() => setSelectedCard(card)}
+                    className="h-20 bg-gradient-to-br from-yellow-100 to-orange-200 border-2 border-yellow-500 rounded-lg hover:brightness-110"
+                    title={card.name}
+                  />
+                ))}
               </div>
-            ) : (
-              <div className="text-center py-12">
-                <Book className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-                <p className="text-gray-400">Selecciona un mazo o crea uno nuevo para empezar</p>
+            </div>
+          </section>
+
+          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-4">
+            <div className="overflow-x-auto">
+              <div className="grid grid-cols-5 md:grid-cols-10 gap-2 min-w-[700px] md:min-w-0">
+                {reserveCards.map((card) => (
+                  <button
+                    key={card.id}
+                    onClick={() => setSelectedCard(card)}
+                    className="h-16 bg-gradient-to-br from-yellow-100 to-orange-200 border-2 border-yellow-500 rounded-lg hover:brightness-110"
+                    title={card.name}
+                  />
+                ))}
               </div>
-            )}
-          </div>
+            </div>
+          </section>
         </div>
       </div>
     </div>
