@@ -1,14 +1,6 @@
-export default function RankingPage() {
-  const mockRanking = Array(10)
-    .fill(null)
-    .map((_, i) => ({
-      rank: i + 1,
-      username: `Jugador${i + 1}`,
-      points: 3000 - i * 100,
-      wins: 50 - i,
-      losses: 10 + i,
-    }));
+import { MOCK_RANKING } from '../mocks/ranking';
 
+export default function RankingPage() {
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold text-white mb-6">🏆 Ranking Global</h1>
@@ -25,7 +17,7 @@ export default function RankingPage() {
             </tr>
           </thead>
           <tbody>
-            {mockRanking.map((player, i) => (
+            {MOCK_RANKING.map((player, i) => (
               <tr key={i} className="border-b border-gray-700 hover:bg-gray-700 transition-colors">
                 <td className="px-6 py-4">
                   <span

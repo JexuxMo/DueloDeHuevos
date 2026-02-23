@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { AuthContext } from './authContext';
+import { AUTH_DEFAULTS, createLoginMockUser, createRegisterMockUser } from '../mocks/auth';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -22,19 +23,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username) => {
     try {
-      const mockUser = {
-        id: 1,
-        username,
-        email: `${username}@duelodehuevos.com`,
-        rankPoints: 1250,
-        wins: 23,
-        losses: 12,
-        gold: 2450,
-        avatar: null,
-      };
+      const mockUser = createLoginMockUser(username);
 
       localStorage.setItem('user', JSON.stringify(mockUser));
-      localStorage.setItem('token', 'mock_jwt_token_123');
+      localStorage.setItem('token', AUTH_DEFAULTS.loginToken);
       setUser(mockUser);
       return { success: true };
     } catch {
@@ -44,19 +36,10 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, email) => {
     try {
-      const mockUser = {
-        id: Date.now(),
-        username,
-        email,
-        rankPoints: 0,
-        wins: 0,
-        losses: 0,
-        gold: 1000,
-        avatar: null,
-      };
+      const mockUser = createRegisterMockUser(username, email);
 
       localStorage.setItem('user', JSON.stringify(mockUser));
-      localStorage.setItem('token', `mock_jwt_token_${Date.now()}`);
+      localStorage.setItem('token', `${AUTH_DEFAULTS.registerTokenPrefix}${Date.now()}`);
       setUser(mockUser);
       return { success: true };
     } catch {

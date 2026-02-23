@@ -3,8 +3,10 @@ import { Search } from 'lucide-react';
 import CartaComponent from '../components/CartaComponent';
 import CartaModal from '../components/CartaModal';
 import { CATEGORY_ORDER, getCategoryLabel } from '../utils/cardCategory';
+import { parseCardsPayload } from '../types/card';
 
 export default function CollectionPage() {
+  /** @type {[import('../types/card').Card[], Function]} */
   const [cartas, setCartas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -16,7 +18,14 @@ export default function CollectionPage() {
     fetch('/data/cardsS1.json')
       .then((response) => response.json())
       .then((data) => {
-        setCartas(data);
+        const payload = Array.isArray(data) ? data : [];
+        const { cards, invalidCount } = parseCardsPayload(payload);
+
+        if (invalidCount > 0) {
+          console.warn(`Se descartaron ${invalidCount} cartas con formato inválido.`);
+        }
+
+        setCartas(cards);
         setLoading(false);
       })
       .catch(() => {

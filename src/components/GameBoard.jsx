@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { MOCK_FOCUSED_CARD } from '../mocks/gameboard';
 
 export default function GameBoard() {
   const [focusedCard, setFocusedCard] = useState(null);
@@ -37,16 +38,6 @@ export default function GameBoard() {
     return 'bg-gray-800 border-gray-600';
   };
 
-  const mockCard = {
-    name: 'Huevo Dragón',
-    type: 'Huevo de Combate',
-    attack: 2500,
-    defense: 2000,
-    description:
-      'Un poderoso huevo dragón que puede destruir cualquier carta en el campo. Cuando es invocado, gana 500 puntos de ataque adicionales.',
-    image: '🥚',
-  };
-
   const renderGrid = (zonePrefix) => (
     <div className="grid grid-rows-2 gap-2">
       {[0, 1].map((row) => (
@@ -56,7 +47,7 @@ export default function GameBoard() {
             .map((_, col) => (
               <button
                 key={`${zonePrefix}-${row}-${col}`}
-                onClick={() => setFocusedCard(mockCard)}
+                onClick={() => setFocusedCard(MOCK_FOCUSED_CARD)}
                 className={`
                   aspect-square rounded-lg border-2 ${getZoneColor(row, col)}
                   hover:opacity-80 transition-all flex flex-col items-center justify-center

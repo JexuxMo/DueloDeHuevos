@@ -1,15 +1,10 @@
 import { useState } from 'react';
 import { Book, Filter, Plus, Search } from 'lucide-react';
+import { MOCK_DECKS } from '../mocks/decks';
 
 export default function DeckBuilderPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDeck, setSelectedDeck] = useState(null);
-
-  const mockDecks = [
-    { id: 1, name: 'Huevos de Fuego', cards: 42, wins: 15, losses: 8 },
-    { id: 2, name: 'Defensores Ovoides', cards: 40, wins: 12, losses: 10 },
-    { id: 3, name: 'Gallinas Legendarias', cards: 45, wins: 8, losses: 5 },
-  ];
 
   return (
     <div className="p-6">
@@ -26,7 +21,7 @@ export default function DeckBuilderPage() {
           <div className="bg-gray-800 rounded-xl p-4 border border-yellow-500">
             <h3 className="text-lg font-bold text-white mb-4">Tus Mazos</h3>
             <div className="space-y-3">
-              {mockDecks.map((deck) => (
+              {MOCK_DECKS.map((deck) => (
                 <div
                   key={deck.id}
                   onClick={() => setSelectedDeck(deck)}

@@ -1,5 +1,6 @@
 import { Swords, Trophy, Users } from 'lucide-react';
 import { useAuth } from '../context/useAuth';
+import { MOCK_ONLINE_PLAYERS } from '../mocks/home';
 
 export default function HomePage() {
   const { user } = useAuth();
@@ -14,7 +15,7 @@ export default function HomePage() {
         <div className="bg-gray-800 rounded-xl p-6 border border-yellow-500">
           <Users className="w-12 h-12 text-yellow-400 mb-4" />
           <h3 className="text-xl font-bold text-white mb-2">Jugadores Online</h3>
-          <p className="text-4xl font-bold text-yellow-400">847</p>
+          <p className="text-4xl font-bold text-yellow-400">{MOCK_ONLINE_PLAYERS}</p>
         </div>
 
         <div className="bg-gray-800 rounded-xl p-6 border border-green-500">
