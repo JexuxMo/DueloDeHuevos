@@ -121,7 +121,171 @@ const useAuth = () => {
   return context;
 };
 
+const CartaComponent = ({ carta, onClick }) => {
+  const esHuevoCombate = carta.categoria === "Huevo de combate";
+  
+  const getColorClase = (clase) => {
+    const colores = {
+      'Clara': 'from-blue-400 to-cyan-300',
+      'Yema': 'from-yellow-400 to-orange-400',
+      'Cascarón': 'from-gray-400 to-gray-600',
+      'Podrido': 'from-purple-600 to-purple-900',
+      'Hechizo': 'from-green-400 to-emerald-500',
+      'Trampa': 'from-pink-400 to-rose-500',
+      'Encantamiento': 'from-indigo-400 to-purple-500',
+      'Encantamiento fuerte': 'from-red-500 to-orange-600',
+      'Encantamiento débil': 'from-blue-300 to-indigo-400',
+    };
+    return colores[clase] || 'from-gray-400 to-gray-600';
+  };
 
+  const getIconoClase = (clase) => {
+    const iconos = {
+      'Clara': '💧',
+      'Yema': '🌟',
+      'Cascarón': '🛡️',
+      'Podrido': '💀',
+      'Hechizo': '✨',
+      'Trampa': '🪤',
+      'Encantamiento': '⚡',
+      'Encantamiento fuerte': '🔥',
+      'Encantamiento débil': '💫',
+    };
+    return iconos[clase] || '🥚';
+  };
+
+  return (
+    <div
+      onClick={onClick}
+      className="bg-white rounded-xl p-3 border-4 border-gray-300 hover:border-yellow-500 transition-all cursor-pointer group transform hover:scale-105 shadow-lg"
+    >
+      {/* Header con icono de clase */}
+      <div className={`bg-gradient-to-r ${getColorClase(carta.clase)} rounded-lg p-2 mb-2 flex items-center justify-between`}>
+        <span className="text-2xl">{getIconoClase(carta.clase)}</span>
+        {esHuevoCombate && carta.nivel && (
+          <div className="flex space-x-1">
+            {[...Array(carta.nivel)].map((_, i) => (
+              <span key={i} className="text-yellow-400">⭐</span>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Imagen placeholder */}
+      <div className="aspect-[2/3] bg-gradient-to-br from-yellow-100 to-orange-200 rounded-lg mb-2 flex items-center justify-center border-2 border-gray-300">
+        <span className="text-6xl">🥚</span>
+      </div>
+
+      {/* Nombre */}
+      <h3 className="font-bold text-sm text-center text-gray-800 mb-1 line-clamp-2">
+        {carta.nombre}
+      </h3>
+
+      {/* Tipo */}
+      <p className="text-xs text-center text-gray-600 mb-2">
+        {carta.tipo !== "N/A" ? carta.tipo : carta.categoria}
+      </p>
+
+      {/* ATK/DEF para huevos de combate */}
+      {esHuevoCombate && (
+        <div className="flex justify-between text-xs font-bold bg-gray-100 rounded p-1">
+          <span className="text-red-600">ATK: {carta.ataque}</span>
+          <span className="text-blue-600">DEF: {carta.defensa}</span>
+        </div>
+      )}
+
+      {/* Serial de la carta */}
+      <p className="text-xs text-center text-gray-500 mt-1">{carta.serial}</p>
+    </div>
+  );
+};
+
+const CartaModal = ({ carta, onClose }) => {
+  if (!carta) return null;
+
+  const esHuevoCombate = carta.categoria === "Huevo de combate";
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50" onClick={onClose}>
+      <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6" onClick={(e) => e.stopPropagation()}>
+        <div className="flex justify-between items-start mb-4">
+          <h2 className="text-3xl font-black text-orange-700">{carta.nombre}</h2>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Imagen */}
+          <div className="aspect-[2/3] bg-gradient-to-br from-yellow-100 to-orange-200 rounded-xl flex items-center justify-center border-4 border-orange-500">
+            <span className="text-9xl">🥚</span>
+          </div>
+
+          {/* Información */}
+          <div className="space-y-4">
+            <div>
+              <p className="text-sm text-gray-600">Serial</p>
+              <p className="font-bold text-lg">{carta.serial}</p>
+            </div>
+
+            <div>
+              <p className="text-sm text-gray-600">Categoría</p>
+              <p className="font-bold text-lg">{carta.categoria}</p>
+            </div>
+
+            <div>
+              <p className="text-sm text-gray-600">Clase</p>
+              <p className="font-bold text-lg">{carta.clase}</p>
+            </div>
+
+            {esHuevoCombate && (
+              <>
+                <div>
+                  <p className="text-sm text-gray-600">Nivel</p>
+                  <div className="flex space-x-1">
+                    {[...Array(carta.nivel)].map((_, i) => (
+                      <span key={i} className="text-yellow-400 text-2xl">⭐</span>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-sm text-gray-600">Tipo</p>
+                  <p className="font-bold text-lg">{carta.tipo}</p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-gray-600">ATK</p>
+                    <p className="font-bold text-2xl text-red-600">{carta.ataque}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600">DEF</p>
+                    <p className="font-bold text-2xl text-blue-600">{carta.defensa}</p>
+                  </div>
+                </div>
+              </>
+            )}
+
+            {carta.efecto && (
+              <div>
+                <p className="text-sm text-gray-600 font-bold">Efecto</p>
+                <p className="text-sm bg-yellow-50 p-3 rounded-lg border-2 border-yellow-300">{carta.efecto}</p>
+              </div>
+            )}
+
+            {carta.ambientacion && (
+              <div>
+                <p className="text-sm text-gray-600 font-bold italic">Texto de Ambientación</p>
+                <p className="text-sm italic text-gray-700">{carta.ambientacion}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 // ==========================================
 // PÁGINA DE LOGIN
@@ -554,18 +718,43 @@ const DeckBuilderPage = () => {
 };
 
 const CollectionPage = () => {
-  const cardTypes = ['Huevos de Combate', 'Hechizos', 'Trampas', 'Encantamientos Fuertes', 'Encantamientos Débiles'];
-  const [selectedType, setSelectedType] = useState('Todas');
+  const [cartas, setCartas] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('Todas');
+  const [selectedCarta, setSelectedCarta] = useState(null);
 
-  const mockCards = Array(24).fill(null).map((_, i) => ({
-    id: i + 1,
-    name: `Carta ${i + 1}`,
-    type: cardTypes[i % 5]
-  }));
+  const categories = ['Todas', 'Huevo de combate', 'Hechizo', 'Trampa', 'Encantamiento Débil', 'Encantamiento Fuerte'];
 
-  const filteredCards = selectedType === 'Todas'
-    ? mockCards
-    : mockCards.filter(card => card.type === selectedType);
+  // Cargar cartas desde JSON
+  useEffect(() => {
+    fetch('/data/cardsS1.json')
+      .then(response => response.json())
+      .then(data => {
+        setCartas(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error cargando cartas:', error);
+        setLoading(false);
+      });
+  }, []);
+
+  const filteredCartas = cartas.filter(carta => {
+    const matchesSearch = carta.nombre.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'Todas' || carta.categoria === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  if (loading) {
+    return (
+      <div className="p-6">
+        <div className="text-center py-12">
+          <p className="text-white text-xl">Cargando cartas...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6">
@@ -573,88 +762,67 @@ const CollectionPage = () => {
         <h1 className="text-3xl font-bold text-white">Tu Colección</h1>
         <div className="text-white">
           <span className="text-gray-400">Total: </span>
-          <span className="text-2xl font-bold text-yellow-400">147</span>
-          <span className="text-gray-400"> / 500 cartas</span>
+          <span className="text-2xl font-bold text-yellow-400">{cartas.length}</span>
+          <span className="text-gray-400"> cartas</span>
         </div>
       </div>
 
-      <div className="mb-6 flex flex-wrap gap-2">
-        <button
-          onClick={() => setSelectedType('Todas')}
-          className={`px-4 py-2 rounded-lg font-bold transition-colors ${
-            selectedType === 'Todas'
-              ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
-              : 'bg-gray-700 hover:bg-gray-600 text-white'
-          }`}
-        >
-          Todas
-        </button>
-        <button
-          onClick={() => setSelectedType('Huevos de Combate')}
-          className={`px-4 py-2 rounded-lg font-bold transition-colors ${
-            selectedType === 'Huevos de Combate'
-              ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
-              : 'bg-gray-700 hover:bg-gray-600 text-white'
-          }`}
-        >
-          Huevos de Combate
-        </button>
-        <button
-          onClick={() => setSelectedType('Hechizos')}
-          className={`px-4 py-2 rounded-lg font-bold transition-colors ${
-            selectedType === 'Hechizos'
-              ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
-              : 'bg-gray-700 hover:bg-gray-600 text-white'
-          }`}
-        >
-          Hechizos
-        </button>
-        <button
-          onClick={() => setSelectedType('Trampas')}
-          className={`px-4 py-2 rounded-lg font-bold transition-colors ${
-            selectedType === 'Trampas'
-              ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
-              : 'bg-gray-700 hover:bg-gray-600 text-white'
-          }`}
-        >
-          Trampas
-        </button>
-        <button
-          onClick={() => setSelectedType('Encantamientos Fuertes')}
-          className={`px-4 py-2 rounded-lg font-bold transition-colors ${
-            selectedType === 'Encantamientos Fuertes'
-              ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
-              : 'bg-gray-700 hover:bg-gray-600 text-white'
-          }`}
-        >
-          Encantamientos Fuertes
-        </button>
-        <button
-          onClick={() => setSelectedType('Encantamientos Débiles')}
-          className={`px-4 py-2 rounded-lg font-bold transition-colors ${
-            selectedType === 'Encantamientos Débiles'
-              ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
-              : 'bg-gray-700 hover:bg-gray-600 text-white'
-          }`}
-        >
-          Encantamientos Débiles
-        </button>
+      {/* Buscador */}
+      <div className="mb-6">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Buscar cartas por nombre..."
+            className="w-full pl-10 pr-4 py-3 bg-gray-800 border border-yellow-500 rounded-lg text-white focus:outline-none focus:border-yellow-400"
+          />
+        </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {filteredCards.map(card => (
-          <div
-            key={card.id}
-            className="bg-gray-800 rounded-lg p-3 border border-yellow-500 hover:border-yellow-400 transition-colors cursor-pointer group"
+      {/* Filtros por categoría */}
+      <div className="mb-6 flex flex-wrap gap-2">
+        {categories.map(cat => (
+          <button
+            key={cat}
+            onClick={() => setSelectedCategory(cat)}
+            className={`px-4 py-2 rounded-lg font-bold transition-colors ${
+              selectedCategory === cat
+                ? 'bg-yellow-600 text-white'
+                : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
+            }`}
           >
-            <div className="aspect-[2/3] bg-gradient-to-br from-yellow-900 to-orange-900 rounded-lg mb-2 flex items-center justify-center group-hover:scale-105 transition-transform">
-              <span className="text-4xl">🥚</span>
-            </div>
-            <p className="text-white text-sm text-center font-bold">{card.name}</p>
-            <p className="text-gray-400 text-xs text-center">{card.type}</p>
-          </div>
+            {cat}
+          </button>
         ))}
       </div>
+
+      {/* Grid de cartas */}
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        {filteredCartas.map(carta => (
+          <CartaComponent
+            key={carta.id}
+            carta={carta}
+            onClick={() => setSelectedCarta(carta)}
+          />
+        ))}
+      </div>
+
+      {/* Mensaje si no hay resultados */}
+      {filteredCartas.length === 0 && (
+        <div className="text-center py-12">
+          <p className="text-gray-400 text-xl">No se encontraron cartas</p>
+        </div>
+      )}
+
+      {/* Modal de detalle */}
+      {selectedCarta && (
+        <CartaModal
+          carta={selectedCarta}
+          onClose={() => setSelectedCarta(null)}
+        />
+      )}
     </div>
   );
 };
