@@ -2,7 +2,7 @@
   {
     "id": 1,
     "serial": "DHO-S1001",
-    "categoria": "Trampa",
+    "categoria": "trampa",
     "nombre": "Ablandador de huevos",
     "nivel": null,
     "clase": "Trampa",
@@ -15,7 +15,7 @@
   {
     "id": 2,
     "serial": "DHO-S1002",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "Acelerador de huevos",
     "nivel": null,
     "clase": "Hechizo",
@@ -28,7 +28,7 @@
   {
     "id": 3,
     "serial": "DHO-S1003",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "Arriba la borrachera",
     "nivel": null,
     "clase": "Hechizo",
@@ -41,7 +41,7 @@
   {
     "id": 4,
     "serial": "DHO-S1004",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Bladegg",
     "nivel": 4,
     "clase": "Cascarón",
@@ -54,7 +54,7 @@
   {
     "id": 5,
     "serial": "DHO-S1005",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Bolita",
     "nivel": 4,
     "clase": "Yema",
@@ -67,7 +67,7 @@
   {
     "id": 6,
     "serial": "DHO-S1006",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Bon, Hue Bon",
     "nivel": 4,
     "clase": "Clara",
@@ -80,7 +80,7 @@
   {
     "id": 7,
     "serial": "DHO-S1007",
-    "categoria": "Trampa",
+    "categoria": "trampa",
     "nombre": "Borrachera de los Poeta Huevo",
     "nivel": null,
     "clase": "Trampa",
@@ -93,7 +93,7 @@
   {
     "id": 8,
     "serial": "DHO-S1008",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "Cambio de clara",
     "nivel": null,
     "clase": "Hechizo",
@@ -106,7 +106,7 @@
   {
     "id": 9,
     "serial": "DHO-S1009",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "Cambio de Yema",
     "nivel": null,
     "clase": "Hechizo",
@@ -119,7 +119,7 @@
   {
     "id": 10,
     "serial": "DHO-S1010",
-    "categoria": "Trampa",
+    "categoria": "trampa",
     "nombre": "Canasta de huevos",
     "nivel": null,
     "clase": "Trampa",
@@ -132,7 +132,7 @@
   {
     "id": 11,
     "serial": "DHO-S1011",
-    "categoria": "Trampa",
+    "categoria": "trampa",
     "nombre": "Cañón de huevos",
     "nivel": null,
     "clase": "Trampa",
@@ -145,7 +145,7 @@
   {
     "id": 12,
     "serial": "DHO-S1012",
-    "categoria": "Trampa",
+    "categoria": "trampa",
     "nombre": "Cata del Huevo Zen",
     "nivel": null,
     "clase": "Trampa",
@@ -158,7 +158,7 @@
   {
     "id": 13,
     "serial": "DHO-S1013",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Chava",
     "nivel": 5,
     "clase": "Cascarón",
@@ -171,7 +171,7 @@
   {
     "id": 14,
     "serial": "DHO-S1014",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Chema",
     "nivel": 5,
     "clase": "Cascarón",
@@ -184,7 +184,7 @@
   {
     "id": 15,
     "serial": "DHO-S1015",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "De regreso al gallinero",
     "nivel": null,
     "clase": "Hechizo",
@@ -197,7 +197,7 @@
   {
     "id": 16,
     "serial": "DHO-S1016",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "Destrucción de cartas",
     "nivel": null,
     "clase": "Hechizo",
@@ -210,7 +210,7 @@
   {
     "id": 17,
     "serial": "DHO-S1017",
-    "categoria": "Trampa",
+    "categoria": "trampa",
     "nombre": "El Batido",
     "nivel": null,
     "clase": "Trampa",
@@ -223,7 +223,7 @@
   {
     "id": 18,
     "serial": "DHO-S1018",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "El buscador de yemas",
     "nivel": null,
     "clase": "Hechizo",
@@ -236,7 +236,7 @@
   {
     "id": 19,
     "serial": "DHO-S1019",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "El camión de basura",
     "nivel": null,
     "clase": "Hechizo",
@@ -249,7 +249,7 @@
   {
     "id": 20,
     "serial": "DHO-S1020",
-    "categoria": "Trampa",
+    "categoria": "trampa",
     "nombre": "El cartón de los huevos",
     "nivel": null,
     "clase": "Trampa",
@@ -262,7 +262,7 @@
   {
     "id": 21,
     "serial": "DHO-S1021",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "El cascarón protegido",
     "nivel": null,
     "clase": "Hechizo",
@@ -275,7 +275,7 @@
   {
     "id": 22,
     "serial": "DHO-S1022",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "El destructor de trampas",
     "nivel": null,
     "clase": "Hechizo",
@@ -288,7 +288,7 @@
   {
     "id": 23,
     "serial": "DHO-S1023",
-    "categoria": "Trampa",
+    "categoria": "trampa",
     "nombre": "El espejo",
     "nivel": null,
     "clase": "Trampa",
@@ -301,7 +301,7 @@
   {
     "id": 24,
     "serial": "DHO-S1024",
-    "categoria": "Encantamiento Débil",
+    "categoria": "encantamiento_debil",
     "nombre": "El grito del huevo",
     "nivel": null,
     "clase": "Encantamiento",
@@ -314,7 +314,7 @@
   {
     "id": 25,
     "serial": "DHO-S1025",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El Huevasesino",
     "nivel": 2,
     "clase": "Clara",
@@ -327,7 +327,7 @@
   {
     "id": 26,
     "serial": "DHO-S1026",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevineitor",
     "nivel": 3,
     "clase": "Podrido",
@@ -340,7 +340,7 @@
   {
     "id": 27,
     "serial": "DHO-S1027",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo Afro",
     "nivel": 4,
     "clase": "Podrido",
@@ -353,7 +353,7 @@
   {
     "id": 28,
     "serial": "DHO-S1028",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo Bazooka",
     "nivel": 4,
     "clase": "Yema",
@@ -366,7 +366,7 @@
   {
     "id": 29,
     "serial": "DHO-S1029",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo boxeador",
     "nivel": 3,
     "clase": "Cascarón",
@@ -379,7 +379,7 @@
   {
     "id": 30,
     "serial": "DHO-S1030",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El Huevo Bravo",
     "nivel": 8,
     "clase": "Cascarón",
@@ -392,7 +392,7 @@
   {
     "id": 31,
     "serial": "DHO-S1031",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo Calaca",
     "nivel": 4,
     "clase": "Podrido",
@@ -405,7 +405,7 @@
   {
     "id": 32,
     "serial": "DHO-S1032",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo con fuego",
     "nivel": 4,
     "clase": "Podrido",
@@ -418,7 +418,7 @@
   {
     "id": 33,
     "serial": "DHO-S1033",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo de hielo",
     "nivel": 4,
     "clase": "Podrido",
@@ -431,7 +431,7 @@
   {
     "id": 34,
     "serial": "DHO-S1034",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo de piedra",
     "nivel": 5,
     "clase": "Cascarón",
@@ -444,7 +444,7 @@
   {
     "id": 35,
     "serial": "DHO-S1035",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El Huevo Dinosaurio",
     "nivel": 3,
     "clase": "Podrido",
@@ -457,7 +457,7 @@
   {
     "id": 36,
     "serial": "DHO-S1036",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo divorciado",
     "nivel": 4,
     "clase": "Cascarón",
@@ -470,7 +470,7 @@
   {
     "id": 37,
     "serial": "DHO-S1037",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo DJ",
     "nivel": 5,
     "clase": "Yema",
@@ -483,7 +483,7 @@
   {
     "id": 38,
     "serial": "DHO-S1038",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El Huevo Gángster",
     "nivel": 6,
     "clase": "Yema",
@@ -496,7 +496,7 @@
   {
     "id": 39,
     "serial": "DHO-S1039",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo Hambriento",
     "nivel": 4,
     "clase": "Podrido",
@@ -509,7 +509,7 @@
   {
     "id": 40,
     "serial": "DHO-S1040",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo Jarocho",
     "nivel": 5,
     "clase": "Podrido",
@@ -522,7 +522,7 @@
   {
     "id": 41,
     "serial": "DHO-S1041",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo Jetón",
     "nivel": 4,
     "clase": "Podrido",
@@ -535,7 +535,7 @@
   {
     "id": 42,
     "serial": "DHO-S1042",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo karateka",
     "nivel": 4,
     "clase": "Cascarón",
@@ -548,7 +548,7 @@
   {
     "id": 43,
     "serial": "DHO-S1043",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo mexicano",
     "nivel": 4,
     "clase": "Podrido",
@@ -561,7 +561,7 @@
   {
     "id": 44,
     "serial": "DHO-S1044",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo moto",
     "nivel": 4,
     "clase": "Yema",
@@ -574,7 +574,7 @@
   {
     "id": 45,
     "serial": "DHO-S1045",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo Obrador",
     "nivel": 5,
     "clase": "Podrido",
@@ -587,7 +587,7 @@
   {
     "id": 46,
     "serial": "DHO-S1046",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo Sócrates",
     "nivel": 4,
     "clase": "Podrido",
@@ -600,7 +600,7 @@
   {
     "id": 47,
     "serial": "DHO-S1047",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo soldado",
     "nivel": 4,
     "clase": "Podrido",
@@ -613,7 +613,7 @@
   {
     "id": 48,
     "serial": "DHO-S1048",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El huevo Tenorio",
     "nivel": 4,
     "clase": "Yema",
@@ -626,7 +626,7 @@
   {
     "id": 49,
     "serial": "DHO-S1049",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "El interruptor",
     "nivel": null,
     "clase": "Hechizo",
@@ -639,7 +639,7 @@
   {
     "id": 50,
     "serial": "DHO-S1050",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El Mago Ebón",
     "nivel": 4,
     "clase": "Yema",
@@ -652,7 +652,7 @@
   {
     "id": 51,
     "serial": "DHO-S1051",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "El poder del huevo equilibrado",
     "nivel": null,
     "clase": "Hechizo",
@@ -665,7 +665,7 @@
   {
     "id": 52,
     "serial": "DHO-S1052",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El Poeta Huevo Ferdinand",
     "nivel": 6,
     "clase": "Yema",
@@ -678,7 +678,7 @@
   {
     "id": 53,
     "serial": "DHO-S1053",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El Poeta Huevo Gabrielle",
     "nivel": 5,
     "clase": "Yema",
@@ -691,7 +691,7 @@
   {
     "id": 54,
     "serial": "DHO-S1054",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El Poeta Huevo Rododendro",
     "nivel": 6,
     "clase": "Yema",
@@ -704,7 +704,7 @@
   {
     "id": 55,
     "serial": "DHO-S1055",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "El retorno del huevo",
     "nivel": null,
     "clase": "Hechizo",
@@ -717,7 +717,7 @@
   {
     "id": 56,
     "serial": "DHO-S1056",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "El rompe huevos",
     "nivel": null,
     "clase": "Hechizo",
@@ -730,7 +730,7 @@
   {
     "id": 57,
     "serial": "DHO-S1057",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "El talismán de huevos tibios",
     "nivel": null,
     "clase": "Hechizo",
@@ -743,7 +743,7 @@
   {
     "id": 58,
     "serial": "DHO-S1058",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "El telescopio albúmina",
     "nivel": null,
     "clase": "Hechizo",
@@ -756,7 +756,7 @@
   {
     "id": 59,
     "serial": "DHO-S1059",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "El testamento del huevo",
     "nivel": null,
     "clase": "Hechizo",
@@ -769,7 +769,7 @@
   {
     "id": 60,
     "serial": "DHO-S1060",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "El Tío Gamborimbo",
     "nivel": 5,
     "clase": "Podrido",
@@ -782,7 +782,7 @@
   {
     "id": 61,
     "serial": "DHO-S1061",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "El vigor duro",
     "nivel": null,
     "clase": "Hechizo",
@@ -795,7 +795,7 @@
   {
     "id": 62,
     "serial": "DHO-S1062",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "Esté podrido el huevo",
     "nivel": null,
     "clase": "Hechizo",
@@ -808,7 +808,7 @@
   {
     "id": 63,
     "serial": "DHO-S1063",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Fidel",
     "nivel": 7,
     "clase": "Yema",
@@ -821,7 +821,7 @@
   {
     "id": 64,
     "serial": "DHO-S1064",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Hojita",
     "nivel": 5,
     "clase": "Podrido",
@@ -834,7 +834,7 @@
   {
     "id": 65,
     "serial": "DHO-S1065",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Huannnibal",
     "nivel": 8,
     "clase": "Podrido",
@@ -847,7 +847,7 @@
   {
     "id": 66,
     "serial": "DHO-S1066",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Huernoldo",
     "nivel": 4,
     "clase": "Yema",
@@ -860,7 +860,7 @@
   {
     "id": 67,
     "serial": "DHO-S1067",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Huevalia",
     "nivel": 5,
     "clase": "Podrido",
@@ -873,7 +873,7 @@
   {
     "id": 68,
     "serial": "DHO-S1068",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Huevo Alpinista",
     "nivel": 4,
     "clase": "Cascarón",
@@ -886,7 +886,7 @@
   {
     "id": 69,
     "serial": "DHO-S1069",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Huevo Caníbal",
     "nivel": 3,
     "clase": "Podrido",
@@ -899,7 +899,7 @@
   {
     "id": 70,
     "serial": "DHO-S1070",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Huevo Cool",
     "nivel": 5,
     "clase": "Yema",
@@ -912,7 +912,7 @@
   {
     "id": 71,
     "serial": "DHO-S1071",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Huevo de Chocolate",
     "nivel": 4,
     "clase": "Podrido",
@@ -925,7 +925,7 @@
   {
     "id": 72,
     "serial": "DHO-S1072",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Huevo de Pascua",
     "nivel": 6,
     "clase": "Yema",
@@ -938,7 +938,7 @@
   {
     "id": 73,
     "serial": "DHO-S1073",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Huevo Nerd",
     "nivel": 4,
     "clase": "Yema",
@@ -951,7 +951,7 @@
   {
     "id": 74,
     "serial": "DHO-S1074",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Huevo Presentador",
     "nivel": 4,
     "clase": "Yema",
@@ -964,7 +964,7 @@
   {
     "id": 75,
     "serial": "DHO-S1075",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Huevo rarito",
     "nivel": 4,
     "clase": "Yema",
@@ -977,7 +977,7 @@
   {
     "id": 76,
     "serial": "DHO-S1076",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Huevo Zen",
     "nivel": 4,
     "clase": "Clara",
@@ -990,7 +990,7 @@
   {
     "id": 77,
     "serial": "DHO-S1077",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Huevox",
     "nivel": 4,
     "clase": "Yema",
@@ -1003,7 +1003,7 @@
   {
     "id": 78,
     "serial": "DHO-S1078",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "La batidora del huevo",
     "nivel": null,
     "clase": "Hechizo",
@@ -1016,7 +1016,7 @@
   {
     "id": 79,
     "serial": "DHO-S1079",
-    "categoria": "Trampa",
+    "categoria": "trampa",
     "nombre": "La caja del Mago Ebón",
     "nivel": null,
     "clase": "Trampa",
@@ -1029,7 +1029,7 @@
   {
     "id": 80,
     "serial": "DHO-S1080",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "La Espada del Huevo",
     "nivel": null,
     "clase": "Hechizo",
@@ -1042,7 +1042,7 @@
   {
     "id": 81,
     "serial": "DHO-S1081",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "La extinción del huevo",
     "nivel": null,
     "clase": "Hechizo",
@@ -1055,7 +1055,7 @@
   {
     "id": 82,
     "serial": "DHO-S1082",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "La hueva boxeadora",
     "nivel": 3,
     "clase": "Podrido",
@@ -1068,7 +1068,7 @@
   {
     "id": 83,
     "serial": "DHO-S1083",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "La hueva vomitona",
     "nivel": 4,
     "clase": "Yema",
@@ -1081,7 +1081,7 @@
   {
     "id": 84,
     "serial": "DHO-S1084",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "La huevita gritona",
     "nivel": 4,
     "clase": "Yema",
@@ -1094,7 +1094,7 @@
   {
     "id": 85,
     "serial": "DHO-S1085",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "La luz del huevo de pascua",
     "nivel": null,
     "clase": "Hechizo",
@@ -1107,7 +1107,7 @@
   {
     "id": 86,
     "serial": "DHO-S1086",
-    "categoria": "Encantamiento Fuerte",
+    "categoria": "encantamiento_fuerte",
     "nombre": "La música del DJ",
     "nivel": null,
     "clase": "Encantamiento",
@@ -1120,7 +1120,7 @@
   {
     "id": 87,
     "serial": "DHO-S1087",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Lee mong chu peo",
     "nivel": 4,
     "clase": "Podrido",
@@ -1133,7 +1133,7 @@
   {
     "id": 88,
     "serial": "DHO-S1088",
-    "categoria": "Trampa",
+    "categoria": "trampa",
     "nombre": "Los huevos el revés",
     "nivel": null,
     "clase": "Trampa",
@@ -1146,7 +1146,7 @@
   {
     "id": 89,
     "serial": "DHO-S1089",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Los huevos malos",
     "nivel": 4,
     "clase": "Podrido",
@@ -1159,7 +1159,7 @@
   {
     "id": 90,
     "serial": "DHO-S1090",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Los huevos que no se tocan",
     "nivel": 5,
     "clase": "Yema",
@@ -1172,10 +1172,10 @@
   {
     "id": 91,
     "serial": "DHO-S1091",
-    "categoria": "Encantamiento fuerte",
+    "categoria": "encantamiento_fuerte",
     "nombre": "Los huevos se cocinan",
     "nivel": null,
-    "clase": "Encantamiento fuerte",
+    "clase": "Encantamiento",
     "tipo": "Encantamiento fuerte",
     "ataque": null,
     "defensa": null,
@@ -1185,7 +1185,7 @@
   {
     "id": 92,
     "serial": "DHO-S1092",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Maestro Filemón",
     "nivel": 4,
     "clase": "Yema",
@@ -1198,7 +1198,7 @@
   {
     "id": 93,
     "serial": "DHO-S1093",
-    "categoria": "Trampa",
+    "categoria": "trampa",
     "nombre": "Misión Huevo",
     "nivel": null,
     "clase": "Trampa",
@@ -1211,7 +1211,7 @@
   {
     "id": 94,
     "serial": "DHO-S1094",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Osama bin huevo",
     "nivel": 7,
     "clase": "Yema",
@@ -1224,7 +1224,7 @@
   {
     "id": 95,
     "serial": "DHO-S1095",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "Pedazo de cascarón",
     "nivel": null,
     "clase": "Hechizo",
@@ -1237,7 +1237,7 @@
   {
     "id": 96,
     "serial": "DHO-S1096",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Pete el huevo cadenero",
     "nivel": 4,
     "clase": "Cascarón",
@@ -1250,7 +1250,7 @@
   {
     "id": 97,
     "serial": "DHO-S1097",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "Por docena",
     "nivel": null,
     "clase": "Hechizo",
@@ -1263,10 +1263,10 @@
   {
     "id": 98,
     "serial": "DHO-S1098",
-    "categoria": "Encantamiento débil",
+    "categoria": "encantamiento_debil",
     "nombre": "Preceptos básicos del huevo equilibrado",
     "nivel": null,
-    "clase": "Encantamiento débil",
+    "clase": "Encantamiento",
     "tipo": "Encantamiento débil",
     "ataque": null,
     "defensa": null,
@@ -1276,7 +1276,7 @@
   {
     "id": 99,
     "serial": "DHO-S1099",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Que padrote Huevo",
     "nivel": 4,
     "clase": "Yema",
@@ -1289,7 +1289,7 @@
   {
     "id": 100,
     "serial": "DHO-S1100",
-    "categoria": "Trampa",
+    "categoria": "trampa",
     "nombre": "Rompe cascarones",
     "nivel": null,
     "clase": "Trampa",
@@ -1302,7 +1302,7 @@
   {
     "id": 101,
     "serial": "DHO-S1101",
-    "categoria": "Hechizo",
+    "categoria": "hechizo",
     "nombre": "Rompe varitas",
     "nivel": null,
     "clase": "Hechizo",
@@ -1315,7 +1315,7 @@
   {
     "id": 102,
     "serial": "DHO-S1102",
-    "categoria": "Trampa",
+    "categoria": "trampa",
     "nombre": "Sartén hirviendo",
     "nivel": null,
     "clase": "Trampa",
@@ -1328,10 +1328,10 @@
   {
     "id": 103,
     "serial": "DHO-S1103",
-    "categoria": "Encantamiento fuerte",
+    "categoria": "encantamiento_fuerte",
     "nombre": "Se acabaron los huevos",
     "nivel": null,
-    "clase": "Encantamiento fuerte",
+    "clase": "Encantamiento",
     "tipo": "Encantamiento fuerte",
     "ataque": null,
     "defensa": null,
@@ -1341,7 +1341,7 @@
   {
     "id": 104,
     "serial": "DHO-S1104",
-    "categoria": "Huevo de combate",
+    "categoria": "huevo_de_combate",
     "nombre": "Tallito",
     "nivel": 4,
     "clase": "Podrido",
@@ -1354,7 +1354,7 @@
   {
     "id": 105,
     "serial": "DHO-S1105",
-    "categoria": "Trampa",
+    "categoria": "trampa",
     "nombre": "Trincheras de huevos",
     "nivel": null,
     "clase": "Trampa",
@@ -1367,7 +1367,7 @@
   {
     "id": 106,
     "serial": "DHO-S1106",
-    "categoria": "Trampa",
+    "categoria": "trampa",
     "nombre": "Una oferta de huevos",
     "nivel": null,
     "clase": "Trampa",
