@@ -20,6 +20,12 @@ const createDeckEntry = (card) => ({
   deckEntryId: `${card.id}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
 });
 
+const countTotalCopiesInDeck = (deck, cardId) => {
+  const totalMain = deck.mainCards.filter((card) => card.id === cardId).length;
+  const totalReserve = deck.reserveCards.filter((card) => card.id === cardId).length;
+  return totalMain + totalReserve;
+};
+
 export default function DeckBuilderPage() {
   /** @type {[import('../types/card').Card[], Function]} */
   const [cartas, setCartas] = useState([]);
@@ -133,6 +139,7 @@ export default function DeckBuilderPage() {
         if (payload.source === 'search') {
           if (targetZone === 'main' && deck.mainCards.length >= MAIN_DECK_LIMIT) return deck;
           if (targetZone === 'reserve' && deck.reserveCards.length >= RESERVE_DECK_LIMIT) return deck;
+          if (countTotalCopiesInDeck(deck, payload.card.id) >= 3) return deck;
 
           const entry = createDeckEntry(payload.card);
           if (targetZone === 'main') {
