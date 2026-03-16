@@ -192,7 +192,7 @@ export default function DeckBuilderPage() {
   const reserveDeckCards = selectedDeck?.reserveCards ?? [];
 
   return (
-    <div className="p-3 lg:p-4 max-w-[1400px] mx-auto overflow-x-hidden lg:h-[calc(100dvh-4.5rem)] lg:overflow-hidden overscroll-none">
+    <div className="p-6 max-w-[1400px] mx-auto overflow-x-hidden lg:h-[calc(100dvh-4.5rem)] lg:overflow-hidden overscroll-none">
       <div className="h-full grid grid-rows-[auto_minmax(0,1fr)] gap-3">
       <div className="flex justify-between items-center">
         <div className="flex items-center">
@@ -210,7 +210,7 @@ export default function DeckBuilderPage() {
       </div>
 
       <div className="min-h-0 grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-3 items-stretch">
-        <div className="min-w-0 min-h-0 lg:h-full pr-1 grid grid-rows-[170px_210px_minmax(0,1fr)_84px] xl:grid-rows-[190px_240px_minmax(0,1fr)_90px] gap-3">
+        <div className="min-w-0 min-h-0 lg:h-full pr-1 grid grid-rows-[170px_260px_minmax(0,1fr)_84px] xl:grid-rows-[190px_300px_minmax(0,1fr)_90px] gap-3">
           <section className="bg-gray-800 border border-yellow-500 rounded-xl p-3 h-full overflow-hidden">
             <div className="space-y-2">
               {decks.map((deck) => (
@@ -230,21 +230,21 @@ export default function DeckBuilderPage() {
           </section>
 
           <section className="bg-gray-800 border border-yellow-500 rounded-xl p-4 flex items-center justify-center h-full overflow-hidden">
-            <div className="w-[174px] aspect-[436/687] bg-gradient-to-br from-yellow-100 to-orange-200 border-2 border-yellow-500 rounded-lg p-3 text-center">
-              <div className="text-5xl mb-2">🥚</div>
-              <p className="text-sm font-bold text-gray-900 line-clamp-2">{selectedCard?.nombre || 'Sin carta seleccionada'}</p>
-              <p className="text-xs text-gray-700 mt-1">{selectedCard?.serial || '---'}</p>
-              <p className="text-xs text-gray-800 mt-2">{typeText}</p>
-              <p className="text-xs text-gray-800">{levelText}</p>
+            <div className="w-[184px] aspect-[436/687] bg-gradient-to-br from-yellow-100 to-orange-200 border-2 border-yellow-500 rounded-lg p-4 text-center">
+              <div className="text-6xl mb-2">🥚</div>
+              <p className="text-base font-bold text-gray-900 line-clamp-2">{selectedCard?.nombre || 'Sin carta seleccionada'}</p>
+              <p className="text-sm text-gray-700 mt-1">{selectedCard?.serial || '---'}</p>
+              <p className="text-sm text-gray-800 mt-2">{typeText}</p>
+              <p className="text-sm text-gray-800">{levelText}</p>
               {isCombatEggCategory(selectedCard?.categoria) && (
-                <div className="mt-2 text-xs font-bold text-gray-900">
+                <div className="mt-2 text-sm font-bold text-gray-900">
                   ATK {selectedCard?.ataque ?? '-'} / DEF {selectedCard?.defensa ?? '-'}
                 </div>
               )}
             </div>
           </section>
 
-          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-3 h-full overflow-hidden">
+          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-4 h-full overflow-hidden">
             <h3 className="text-sm font-bold text-yellow-400 mb-2">Texto de carta</h3>
             <div className="h-[calc(100%-1.75rem)] overflow-y-auto overscroll-contain pr-1">
               {selectedCard?.efecto && (
@@ -391,11 +391,10 @@ export default function DeckBuilderPage() {
                   />
                 ))}
               </div>
+              {reserveDeckCards.length === 0 && (
+                <p className="text-gray-400 text-sm mt-2">Librería de reserva vacía. Suelta cartas aquí para reservarlas.</p>
+              )}
             </div>
-
-            {reserveDeckCards.length === 0 && (
-              <p className="text-gray-400 text-sm mt-2">Librería de reserva vacía. Suelta cartas aquí para reservarlas.</p>
-            )}
           </section>
         </div>
       </div>
