@@ -192,25 +192,26 @@ export default function DeckBuilderPage() {
   const reserveDeckCards = selectedDeck?.reserveCards ?? [];
 
   return (
-    <div className="p-4 lg:p-5 max-w-[1400px] mx-auto overflow-x-hidden">
-      <div className="mb-3 grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-3">
-        <div className="bg-gray-800 border border-yellow-500 px-4 py-2 rounded-xl">
-          <h1 className="text-xl lg:text-2xl font-bold text-white">Constructor de Mazos</h1>
+    <div className="p-3 lg:p-4 max-w-[1400px] mx-auto overflow-x-hidden lg:h-[calc(100dvh-4.5rem)] lg:overflow-hidden overscroll-none">
+      <div className="h-full grid grid-rows-[auto_minmax(0,1fr)] gap-3">
+      <div className="flex justify-between items-center">
+        <div className="flex items-center">
+          <h1 className="text-2xl lg:text-3xl font-bold text-white">Constructor de Mazos</h1>
         </div>
         <div className="flex justify-start lg:justify-end">
           <button
             onClick={createNewDeck}
-            className="bg-yellow-600 hover:bg-yellow-700 border border-yellow-500 text-white px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 text-xs sm:text-sm"
+            className="bg-yellow-600 hover:bg-yellow-700 border border-yellow-500 text-white h-8 px-3 rounded-lg font-bold inline-flex items-center gap-1.5 text-sm leading-none"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-3.5 h-3.5" />
             Nuevo Mazo
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-3 items-stretch">
-        <div className="space-y-3 min-w-0 lg:sticky lg:top-3 lg:self-start">
-          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-3 h-[210px] overflow-hidden">
+      <div className="min-h-0 grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-3 items-stretch">
+        <div className="min-w-0 min-h-0 lg:h-full pr-1 grid grid-rows-[170px_210px_minmax(0,1fr)_84px] xl:grid-rows-[190px_240px_minmax(0,1fr)_90px] gap-3">
+          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-3 h-full overflow-hidden">
             <div className="space-y-2">
               {decks.map((deck) => (
                 <button
@@ -228,7 +229,7 @@ export default function DeckBuilderPage() {
             </div>
           </section>
 
-          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-4 flex items-center justify-center h-[280px] overflow-hidden">
+          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-4 flex items-center justify-center h-full overflow-hidden">
             <div className="w-[174px] aspect-[436/687] bg-gradient-to-br from-yellow-100 to-orange-200 border-2 border-yellow-500 rounded-lg p-3 text-center">
               <div className="text-5xl mb-2">🥚</div>
               <p className="text-sm font-bold text-gray-900 line-clamp-2">{selectedCard?.nombre || 'Sin carta seleccionada'}</p>
@@ -243,9 +244,9 @@ export default function DeckBuilderPage() {
             </div>
           </section>
 
-          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-3 h-[260px] overflow-hidden">
+          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-3 h-full overflow-hidden">
             <h3 className="text-sm font-bold text-yellow-400 mb-2">Texto de carta</h3>
-            <div className="h-[180px] overflow-y-auto pr-1">
+            <div className="h-[calc(100%-1.75rem)] overflow-y-auto overscroll-contain pr-1">
               {selectedCard?.efecto && (
                 <p className="text-xs text-gray-200 leading-relaxed mb-2">
                   <span className="font-bold text-yellow-300">Efecto: </span>
@@ -264,20 +265,20 @@ export default function DeckBuilderPage() {
             </div>
           </section>
 
-          <section className="bg-gray-800 border border-yellow-500 rounded-xl overflow-hidden">
-            <div className="grid grid-cols-2">
-              <button className="border-r border-gray-700 py-1.5 text-sm text-white bg-gray-700 hover:bg-gray-600">Guardar</button>
-              <button className="py-1.5 text-sm text-white bg-gray-700 hover:bg-gray-600">Paso Atrás</button>
+          <section className="bg-gray-800 border border-yellow-500 rounded-xl h-full overflow-hidden">
+            <div className="grid grid-cols-2 h-1/2">
+              <button className="border-r border-gray-700 text-sm text-white bg-gray-700 hover:bg-gray-600">Guardar</button>
+              <button className="text-sm text-white bg-gray-700 hover:bg-gray-600">Paso Atrás</button>
             </div>
-            <div className="grid grid-cols-2">
-              <button className="border-r border-gray-700 py-1.5 text-sm text-white bg-gray-700 hover:bg-gray-600">Eliminar</button>
-              <button className="py-1.5 text-sm text-white bg-gray-700 hover:bg-gray-600">Limpiar</button>
+            <div className="grid grid-cols-2 h-1/2 border-t border-gray-700">
+              <button className="border-r border-gray-700 text-sm text-white bg-gray-700 hover:bg-gray-600">Eliminar</button>
+              <button className="text-sm text-white bg-gray-700 hover:bg-gray-600">Limpiar</button>
             </div>
           </section>
         </div>
 
-        <div className="min-w-0 space-y-3">
-          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-3 overflow-hidden h-[210px]">
+        <div className="min-w-0 min-h-0 lg:h-full grid grid-rows-[180px_minmax(0,1fr)_170px] xl:grid-rows-[210px_minmax(0,1fr)_190px] 2xl:grid-rows-[220px_minmax(0,1fr)_210px] gap-3">
+          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-3 overflow-hidden h-full flex flex-col">
             <div className="flex gap-2 mb-3">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -289,13 +290,13 @@ export default function DeckBuilderPage() {
                   className="w-full pl-9 pr-3 py-1.5 bg-gray-900 border border-yellow-500 rounded-lg text-white placeholder:text-gray-400"
                 />
               </div>
-              <button className="bg-yellow-600 hover:bg-yellow-700 border border-yellow-500 px-3 py-1.5 rounded-lg font-bold text-sm text-white">Buscar</button>
+              <button className="bg-yellow-600 hover:bg-yellow-700 border border-yellow-500 h-8 px-3 rounded-lg font-bold inline-flex items-center leading-none text-sm text-white">Buscar</button>
             </div>
 
             {loading && <p className="text-gray-300 text-sm">Cargando cartas...</p>}
             {!loading && error && <p className="text-red-300 text-sm">{error}</p>}
 
-            <div className="h-[140px] overflow-hidden">
+            <div className="h-[110px] xl:h-auto xl:flex-1 min-h-0 overflow-hidden">
               {!loading && !error && filteredCards.length > 0 && (
                 <div className={hasFilteredOverflow ? 'w-full overflow-x-auto pb-2' : ''}>
                   <div
@@ -335,11 +336,11 @@ export default function DeckBuilderPage() {
             onDragOver={handleZoneDragOver('main')}
             onDrop={handleDropInZone('main')}
             onDragLeave={clearDropZone}
-            className={`bg-gray-800 border rounded-xl p-3 overflow-hidden h-[430px] transition-colors ${
+            className={`bg-gray-800 border rounded-xl p-3 overflow-hidden h-full transition-colors ${
               dropZone === 'main' ? 'border-green-400 bg-gray-700/80' : 'border-yellow-500'
             }`}
           >
-            <div className="h-[370px] overflow-y-auto pr-1">
+            <div className="h-full overflow-y-auto overscroll-contain pr-1">
               {selectedDeck && (
                 <p className="text-gray-300 text-sm mb-3">
                   Mazo principal: {mainDeckCards.length}/{MAIN_DECK_LIMIT}
@@ -371,14 +372,14 @@ export default function DeckBuilderPage() {
             onDragOver={handleZoneDragOver('reserve')}
             onDrop={handleDropInZone('reserve')}
             onDragLeave={clearDropZone}
-            className={`border rounded-xl p-3 h-[190px] overflow-hidden transition-colors ${
+            className={`border rounded-xl p-3 h-full overflow-hidden transition-colors ${
               dropZone === 'reserve' ? 'border-green-400 bg-gray-700/80' : 'bg-gray-800 border-yellow-500'
             }`}
           >
             <div className="mb-2 text-gray-300 text-sm">
               Librería de reserva: {reserveDeckCards.length}/{RESERVE_DECK_LIMIT}
             </div>
-            <div className="w-full overflow-x-auto h-[150px]">
+            <div className="w-full overflow-x-auto h-[95px] xl:h-[120px] 2xl:h-[150px]">
               <div className="flex gap-2 min-w-max">
                 {reserveDeckCards.map((card) => (
                   <DeckCardTile
@@ -397,6 +398,7 @@ export default function DeckBuilderPage() {
             )}
           </section>
         </div>
+      </div>
       </div>
     </div>
   );
