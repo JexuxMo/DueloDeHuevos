@@ -51,9 +51,19 @@ function AppContent() {
   if (!user) return renderPage();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-400 via-yellow-200 to-slate-400">
+    <div
+      className={`min-h-screen bg-gradient-to-br from-slate-400 via-yellow-200 to-slate-400 ${
+        currentPage === 'deckbuilder' ? 'overflow-hidden' : ''
+      }`}
+    >
       <Navigation currentPage={currentPage} onNavigate={setCurrentPage} onLogout={handleLogout} />
-      <main className="max-w-7xl mx-auto">{renderPage()}</main>
+      <main
+        className={`max-w-7xl mx-auto ${
+          currentPage === 'deckbuilder' ? 'h-[calc(100dvh-4rem)] overflow-hidden' : ''
+        }`}
+      >
+        {renderPage()}
+      </main>
     </div>
   );
 }

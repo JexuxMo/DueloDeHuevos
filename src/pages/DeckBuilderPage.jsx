@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Plus, Search } from 'lucide-react';
 import DeckCardTile from '../components/DeckCardTile';
 import { getCategoryLabel, isCombatEggCategory } from '../utils/cardCategory';
@@ -37,6 +37,8 @@ export default function DeckBuilderPage() {
   const [selectedDeckId, setSelectedDeckId] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
   const [dropZone, setDropZone] = useState(null);
+  const activeDragRef = useRef(null);
+  const dropHandledRef = useRef(false);
 
   useEffect(() => {
     setSelectedDeckId((current) => current ?? decks[0]?.id ?? null);
@@ -60,6 +62,19 @@ export default function DeckBuilderPage() {
         setError('No se pudieron cargar las cartas.');
         setLoading(false);
       });
+  }, []);
+
+  useEffect(() => {
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+    };
   }, []);
 
   const selectedDeck = useMemo(
@@ -92,6 +107,8 @@ export default function DeckBuilderPage() {
   const clearDropZone = () => setDropZone(null);
 
   const beginDragFromSearch = (card) => (event) => {
+    activeDragRef.current = { source: 'search', card };
+    dropHandledRef.current = false;
     event.dataTransfer.effectAllowed = 'copyMove';
     event.dataTransfer.setData(
       DRAG_CARD_MIME,
@@ -104,6 +121,8 @@ export default function DeckBuilderPage() {
   };
 
   const beginDragFromDeck = (card, sourceZone) => (event) => {
+    activeDragRef.current = { source: sourceZone, card, deckEntryId: card.deckEntryId };
+    dropHandledRef.current = false;
     event.dataTransfer.effectAllowed = 'move';
     event.dataTransfer.setData(
       DRAG_CARD_MIME,
@@ -116,8 +135,37 @@ export default function DeckBuilderPage() {
     setSelectedCard(card);
   };
 
+  const handleDeckDragEnd = (sourceZone, deckEntryId) => () => {
+    const wasHandled = dropHandledRef.current;
+
+    dropHandledRef.current = false;
+    activeDragRef.current = null;
+    clearDropZone();
+
+    if (wasHandled || !selectedDeckId) return;
+
+    setDecks((prev) =>
+      prev.map((deck) => {
+        if (deck.id !== selectedDeckId) return deck;
+
+        if (sourceZone === 'reserve') {
+          return {
+            ...deck,
+            reserveCards: deck.reserveCards.filter((card) => card.deckEntryId !== deckEntryId),
+          };
+        }
+
+        return {
+          ...deck,
+          mainCards: deck.mainCards.filter((card) => card.deckEntryId !== deckEntryId),
+        };
+      }),
+    );
+  };
+
   const handleDropInZone = (targetZone) => (event) => {
     event.preventDefault();
+    dropHandledRef.current = true;
     clearDropZone();
 
     if (!selectedDeckId) return;
@@ -314,14 +362,18 @@ export default function DeckBuilderPage() {
                     }
                   >
                     {filteredCards.map((card) => (
-                      <DeckCardTile
-                        key={`search-${card.id}`}
-                        card={card}
-                        onClick={() => setSelectedCard(card)}
-                        onDragStart={beginDragFromSearch(card)}
-                        onDragEnd={clearDropZone}
-                      />
-                    ))}
+                    <DeckCardTile
+                      key={`search-${card.id}`}
+                      card={card}
+                      onClick={() => setSelectedCard(card)}
+                      onDragStart={beginDragFromSearch(card)}
+                      onDragEnd={() => {
+                        activeDragRef.current = null;
+                        dropHandledRef.current = false;
+                        clearDropZone();
+                      }}
+                    />
+                  ))}
                   </div>
                 </div>
               )}
@@ -354,7 +406,7 @@ export default function DeckBuilderPage() {
                     card={card}
                     onClick={() => setSelectedCard(card)}
                     onDragStart={beginDragFromDeck(card, 'main')}
-                    onDragEnd={clearDropZone}
+                    onDragEnd={handleDeckDragEnd('main', card.deckEntryId)}
                     selected={selectedCard?.deckEntryId === card.deckEntryId}
                   />
                 ))}
@@ -387,7 +439,7 @@ export default function DeckBuilderPage() {
                     card={card}
                     onClick={() => setSelectedCard(card)}
                     onDragStart={beginDragFromDeck(card, 'reserve')}
-                    onDragEnd={clearDropZone}
+                    onDragEnd={handleDeckDragEnd('reserve', card.deckEntryId)}
                   />
                 ))}
               </div>
