@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Plus, Search } from 'lucide-react';
 import DeckCardTile from '../components/DeckCardTile';
-import { getCategoryLabel, isCombatEggCategory } from '../utils/cardCategory';
+import { CATEGORY_ORDER, getCategoryLabel, isCombatEggCategory } from '../utils/cardCategory';
 import { parseCardsPayload } from '../types/card';
 
 const MAIN_DECK_LIMIT = 30;
@@ -32,6 +32,7 @@ export default function DeckBuilderPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   const [decks, setDecks] = useState([createDeck(0)]);
   const [selectedDeckId, setSelectedDeckId] = useState(null);
@@ -85,8 +86,13 @@ export default function DeckBuilderPage() {
   const normalizedSearch = searchTerm.trim().toLowerCase();
 
   const filteredCards = useMemo(
-    () => cartas.filter((carta) => carta.nombre.toLowerCase().includes(normalizedSearch)),
-    [cartas, normalizedSearch],
+    () =>
+      cartas.filter((carta) => {
+        const matchesSearch = carta.nombre.toLowerCase().includes(normalizedSearch);
+        const matchesCategory = selectedCategory === 'all' || carta.categoria === selectedCategory;
+        return matchesSearch && matchesCategory;
+      }),
+    [cartas, normalizedSearch, selectedCategory],
   );
 
   const hasFilteredOverflow = filteredCards.length > 10;
@@ -325,62 +331,97 @@ export default function DeckBuilderPage() {
           </section>
         </div>
 
-        <div className="min-w-0 min-h-0 lg:h-full grid grid-rows-[180px_minmax(0,1fr)_170px] xl:grid-rows-[210px_minmax(0,1fr)_190px] 2xl:grid-rows-[220px_minmax(0,1fr)_210px] gap-3">
+        <div className="min-w-0 min-h-0 lg:h-full grid grid-rows-[165px_minmax(0,1fr)_170px] xl:grid-rows-[185px_minmax(0,1fr)_190px] 2xl:grid-rows-[195px_minmax(0,1fr)_210px] gap-3">
           <section className="bg-gray-800 border border-yellow-500 rounded-xl p-3 overflow-hidden h-full flex flex-col">
-            <div className="flex gap-2 mb-3">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
-                <input
-                  type="text"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Buscar cartas por nombre..."
-                  className="w-full pl-9 pr-3 py-1.5 bg-gray-900 border border-yellow-500 rounded-lg text-white placeholder:text-gray-400"
-                />
-              </div>
-              <button className="bg-yellow-600 hover:bg-yellow-700 border border-yellow-500 h-8 px-3 rounded-lg font-bold inline-flex items-center leading-none text-sm text-white">Buscar</button>
-            </div>
-
-            {loading && <p className="text-gray-300 text-sm">Cargando cartas...</p>}
-            {!loading && error && <p className="text-red-300 text-sm">{error}</p>}
-
-            <div className="h-[110px] xl:h-auto xl:flex-1 min-h-0 overflow-hidden">
-              {!loading && !error && filteredCards.length > 0 && (
-                <div className={hasFilteredOverflow ? 'w-full overflow-x-auto pb-2' : ''}>
-                  <div
-                    className={!hasFilteredOverflow ? 'grid grid-cols-2 md:grid-cols-5 xl:grid-cols-10 gap-2 justify-items-center content-start' : ''}
-                    style={
-                      hasFilteredOverflow
-                        ? {
-                            display: 'grid',
-                            gridAutoFlow: 'column',
-                            gridAutoColumns: '6rem',
-                            gap: '0.5rem',
-                            minWidth: 'max-content',
-                          }
-                        : undefined
-                    }
+            <div className="grid grid-cols-1 lg:grid-cols-[180px_minmax(0,1fr)] gap-3 h-full">
+              <div className="bg-gray-900/70 border border-gray-700 rounded-xl p-2 min-h-0 overflow-y-auto overscroll-contain">
+                <p className="text-[11px] font-bold uppercase tracking-wide text-yellow-300 mb-2">Categoria</p>
+                <div className="space-y-1.5">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCategory('all')}
+                    className={`w-full text-left px-2 py-1 rounded-lg text-xs font-bold border transition-colors ${
+                      selectedCategory === 'all'
+                        ? 'bg-yellow-600 text-white border-yellow-400'
+                        : 'bg-gray-700 text-gray-200 border-gray-600 hover:bg-gray-600'
+                    }`}
                   >
-                    {filteredCards.map((card) => (
-                    <DeckCardTile
-                      key={`search-${card.id}`}
-                      card={card}
-                      onClick={() => setSelectedCard(card)}
-                      onDragStart={beginDragFromSearch(card)}
-                      onDragEnd={() => {
-                        activeDragRef.current = null;
-                        dropHandledRef.current = false;
-                        clearDropZone();
-                      }}
-                    />
+                    Todas
+                  </button>
+                  {CATEGORY_ORDER.map((categoryKey) => (
+                    <button
+                      key={categoryKey}
+                      type="button"
+                      onClick={() => setSelectedCategory(categoryKey)}
+                      className={`w-full text-left px-2 py-1 rounded-lg text-xs font-bold border transition-colors ${
+                        selectedCategory === categoryKey
+                          ? 'bg-yellow-600 text-white border-yellow-400'
+                          : 'bg-gray-700 text-gray-200 border-gray-600 hover:bg-gray-600'
+                      }`}
+                    >
+                      {getCategoryLabel(categoryKey)}
+                    </button>
                   ))}
-                  </div>
                 </div>
-              )}
+              </div>
 
-              {!loading && !error && filteredCards.length === 0 && (
-                <p className="text-gray-400 text-sm">No se encontraron cartas con ese nombre.</p>
-              )}
+              <div className="min-w-0 min-h-0 flex flex-col">
+                <div className="flex gap-2 mb-2">
+                  <div className="relative flex-1">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <input
+                      type="text"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      placeholder="Buscar cartas por nombre..."
+                      className="w-full pl-9 pr-3 py-1.5 bg-gray-900 border border-yellow-500 rounded-lg text-white placeholder:text-gray-400"
+                    />
+                  </div>
+                  <button className="bg-yellow-600 hover:bg-yellow-700 border border-yellow-500 h-8 px-3 rounded-lg font-bold inline-flex items-center leading-none text-sm text-white">Buscar</button>
+                </div>
+
+                {loading && <p className="text-gray-300 text-sm">Cargando cartas...</p>}
+                {!loading && error && <p className="text-red-300 text-sm">{error}</p>}
+
+                <div className="h-[95px] xl:h-auto xl:flex-1 min-h-0 overflow-hidden">
+                  {!loading && !error && filteredCards.length > 0 && (
+                    <div className={hasFilteredOverflow ? 'w-full overflow-x-auto pb-2' : ''}>
+                      <div
+                        className={!hasFilteredOverflow ? 'grid grid-cols-2 md:grid-cols-5 xl:grid-cols-10 gap-2 justify-items-center content-start' : ''}
+                        style={
+                          hasFilteredOverflow
+                            ? {
+                                display: 'grid',
+                                gridAutoFlow: 'column',
+                                gridAutoColumns: '6rem',
+                                gap: '0.5rem',
+                                minWidth: 'max-content',
+                              }
+                            : undefined
+                        }
+                      >
+                        {filteredCards.map((card) => (
+                          <DeckCardTile
+                            key={`search-${card.id}`}
+                            card={card}
+                            onClick={() => setSelectedCard(card)}
+                            onDragStart={beginDragFromSearch(card)}
+                            onDragEnd={() => {
+                              activeDragRef.current = null;
+                              dropHandledRef.current = false;
+                              clearDropZone();
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {!loading && !error && filteredCards.length === 0 && (
+                    <p className="text-gray-400 text-sm">No se encontraron cartas con ese nombre.</p>
+                  )}
+                </div>
+              </div>
             </div>
           </section>
 
