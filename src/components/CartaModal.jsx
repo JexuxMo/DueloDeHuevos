@@ -22,9 +22,9 @@ export default function CartaModal({ carta, onClose }) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-gradient-to-br from-yellow-100 to-orange-200 rounded-xl flex items-center justify-center border-4 border-orange-500 overflow-hidden">
+          <div className="aspect-[4/9] bg-gradient-to-br from-yellow-100 to-orange-200 rounded-xl flex items-center justify-center overflow-hidden">
             {cardImage ? (
-              <img src={cardImage} alt={carta.nombre} className="w-full h-full object-cover" />
+              <img src={cardImage} alt={carta.nombre} className="w-full h-full object-contain bg-white" />
             ) : (
               <span className="text-9xl">🥚</span>
             )}
@@ -66,7 +66,7 @@ export default function CartaModal({ carta, onClose }) {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-sm text-gray-600">ATK</p>
+                    <p className="text-sm text-gray-600">ATA</p>
                     <p className="font-bold text-2xl text-red-600">{carta.ataque}</p>
                   </div>
                   <div>
@@ -80,14 +80,18 @@ export default function CartaModal({ carta, onClose }) {
             {carta.efecto && (
               <div>
                 <p className="text-sm text-gray-600 font-bold">Efecto</p>
-                <p className="text-sm bg-yellow-50 p-3 rounded-lg border-2 border-yellow-300">{carta.efecto}</p>
+                <div className="text-sm bg-yellow-50 p-3 rounded-lg border-2 border-yellow-300 max-h-28 overflow-y-auto">
+                  {carta.efecto}
+                </div>
               </div>
             )}
 
             {carta.ambientacion && (
               <div>
                 <p className="text-sm text-gray-600 font-bold italic">Texto de Ambientación</p>
-                <p className="text-sm italic text-gray-700">{carta.ambientacion}</p>
+                <div className="text-sm italic text-gray-700 bg-gray-50 p-3 rounded-lg border border-gray-300 max-h-24 overflow-y-auto">
+                  {carta.ambientacion}
+                </div>
               </div>
             )}
           </div>

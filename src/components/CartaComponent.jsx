@@ -3,12 +3,12 @@ import { getCardImageBySerial } from '../utils/cardImageMap';
 
 const getColorClase = (clase) => {
   const colores = {
-    Clara: 'from-blue-400 to-cyan-300',
-    Yema: 'from-yellow-400 to-orange-400',
-    Cascarón: 'from-gray-400 to-gray-600',
-    Podrido: 'from-purple-600 to-purple-900',
-    Hechizo: 'from-green-400 to-emerald-500',
-    Trampa: 'from-pink-400 to-rose-500',
+    Clara: 'from-slate-200 to-neutral-300',
+    Yema: 'from-yellow-300 to-orange-400',
+    Cascarón: 'from-amber-500 to-amber-700',
+    Podrido: 'from-gray-600 to-gray-900',
+    Hechizo: 'from-pink-400 to-rose-500',
+    Trampa: 'from-green-400 to-emerald-500',
     Encantamiento: 'from-indigo-400 to-purple-500',
     'Encantamiento fuerte': 'from-red-500 to-orange-600',
     'Encantamiento débil': 'from-blue-300 to-indigo-400',
