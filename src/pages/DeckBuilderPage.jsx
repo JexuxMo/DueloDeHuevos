@@ -33,6 +33,11 @@ export default function DeckBuilderPage() {
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [combatClassFilter, setCombatClassFilter] = useState('all');
+  const [combatTypeFilter, setCombatTypeFilter] = useState('all');
+  const [combatLevelFilter, setCombatLevelFilter] = useState('all');
+  const [combatAttackMinFilter, setCombatAttackMinFilter] = useState('');
+  const [combatDefenseMinFilter, setCombatDefenseMinFilter] = useState('');
 
   const [decks, setDecks] = useState([createDeck(0)]);
   const [selectedDeckId, setSelectedDeckId] = useState(null);
@@ -84,15 +89,64 @@ export default function DeckBuilderPage() {
   );
 
   const normalizedSearch = searchTerm.trim().toLowerCase();
+  const isCombatCategorySelected = selectedCategory === 'huevo_de_combate';
+
+  const combatCards = useMemo(
+    () => cartas.filter((carta) => carta.categoria === 'huevo_de_combate'),
+    [cartas],
+  );
+
+  const combatClassOptions = useMemo(
+    () => [...new Set(combatCards.map((carta) => carta.clase).filter(Boolean))].sort(),
+    [combatCards],
+  );
+
+  const combatTypeOptions = useMemo(
+    () => [...new Set(combatCards.map((carta) => carta.tipo).filter((tipo) => tipo && tipo !== 'N/A'))].sort(),
+    [combatCards],
+  );
+
+  const combatLevelOptions = useMemo(
+    () =>
+      [...new Set(combatCards.map((carta) => carta.nivel).filter((nivel) => typeof nivel === 'number'))].sort(
+        (a, b) => a - b,
+      ),
+    [combatCards],
+  );
 
   const filteredCards = useMemo(
     () =>
       cartas.filter((carta) => {
         const matchesSearch = carta.nombre.toLowerCase().includes(normalizedSearch);
         const matchesCategory = selectedCategory === 'all' || carta.categoria === selectedCategory;
-        return matchesSearch && matchesCategory;
+        if (!matchesSearch || !matchesCategory) return false;
+        if (!isCombatCategorySelected) return true;
+
+        const matchesClass = combatClassFilter === 'all' || carta.clase === combatClassFilter;
+        const matchesType = combatTypeFilter === 'all' || carta.tipo === combatTypeFilter;
+        const matchesLevel =
+          combatLevelFilter === 'all' || carta.nivel === Number.parseInt(combatLevelFilter, 10);
+
+        const attackMin = Number.parseInt(combatAttackMinFilter, 10);
+        const defenseMin = Number.parseInt(combatDefenseMinFilter, 10);
+        const matchesAttack =
+          Number.isNaN(attackMin) || (typeof carta.ataque === 'number' && carta.ataque >= attackMin);
+        const matchesDefense =
+          Number.isNaN(defenseMin) || (typeof carta.defensa === 'number' && carta.defensa >= defenseMin);
+
+        return matchesClass && matchesType && matchesLevel && matchesAttack && matchesDefense;
       }),
-    [cartas, normalizedSearch, selectedCategory],
+    [
+      cartas,
+      normalizedSearch,
+      selectedCategory,
+      isCombatCategorySelected,
+      combatClassFilter,
+      combatTypeFilter,
+      combatLevelFilter,
+      combatAttackMinFilter,
+      combatDefenseMinFilter,
+    ],
   );
 
   const hasFilteredOverflow = filteredCards.length > 10;
@@ -378,6 +432,70 @@ export default function DeckBuilderPage() {
                     />
                   </div>
                   <button className="bg-yellow-600 hover:bg-yellow-700 border border-yellow-500 h-8 px-3 rounded-lg font-bold inline-flex items-center leading-none text-sm text-white">Buscar</button>
+                </div>
+
+                <div className={`mb-2 grid grid-cols-2 xl:grid-cols-5 gap-2 ${!isCombatCategorySelected ? 'opacity-60' : ''}`}>
+                  <select
+                    value={combatClassFilter}
+                    onChange={(event) => setCombatClassFilter(event.target.value)}
+                    disabled={!isCombatCategorySelected}
+                    className="w-full px-2 py-1.5 bg-gray-900 border border-yellow-500 rounded-lg text-white text-xs disabled:cursor-not-allowed"
+                  >
+                    <option value="all">Clase: Todas</option>
+                    {combatClassOptions.map((className) => (
+                      <option key={className} value={className}>
+                        {className}
+                      </option>
+                    ))}
+                  </select>
+
+                  <select
+                    value={combatTypeFilter}
+                    onChange={(event) => setCombatTypeFilter(event.target.value)}
+                    disabled={!isCombatCategorySelected}
+                    className="w-full px-2 py-1.5 bg-gray-900 border border-yellow-500 rounded-lg text-white text-xs disabled:cursor-not-allowed"
+                  >
+                    <option value="all">Tipo: Todos</option>
+                    {combatTypeOptions.map((typeName) => (
+                      <option key={typeName} value={typeName}>
+                        {typeName}
+                      </option>
+                    ))}
+                  </select>
+
+                  <select
+                    value={combatLevelFilter}
+                    onChange={(event) => setCombatLevelFilter(event.target.value)}
+                    disabled={!isCombatCategorySelected}
+                    className="w-full px-2 py-1.5 bg-gray-900 border border-yellow-500 rounded-lg text-white text-xs disabled:cursor-not-allowed"
+                  >
+                    <option value="all">Nivel: Todos</option>
+                    {combatLevelOptions.map((levelValue) => (
+                      <option key={levelValue} value={levelValue}>
+                        Nivel {levelValue}
+                      </option>
+                    ))}
+                  </select>
+
+                  <input
+                    type="number"
+                    min="0"
+                    value={combatAttackMinFilter}
+                    onChange={(event) => setCombatAttackMinFilter(event.target.value)}
+                    disabled={!isCombatCategorySelected}
+                    placeholder="ATK min"
+                    className="w-full px-2 py-1.5 bg-gray-900 border border-yellow-500 rounded-lg text-white text-xs placeholder:text-gray-400 disabled:cursor-not-allowed"
+                  />
+
+                  <input
+                    type="number"
+                    min="0"
+                    value={combatDefenseMinFilter}
+                    onChange={(event) => setCombatDefenseMinFilter(event.target.value)}
+                    disabled={!isCombatCategorySelected}
+                    placeholder="DEF min"
+                    className="w-full px-2 py-1.5 bg-gray-900 border border-yellow-500 rounded-lg text-white text-xs placeholder:text-gray-400 disabled:cursor-not-allowed"
+                  />
                 </div>
 
                 {loading && <p className="text-gray-300 text-sm">Cargando cartas...</p>}
