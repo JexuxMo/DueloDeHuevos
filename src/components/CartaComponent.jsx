@@ -1,4 +1,5 @@
 import { getCategoryLabel, isCombatEggCategory } from '../utils/cardCategory';
+import { getCardImageBySerial } from '../utils/cardImageMap';
 
 const getColorClase = (clase) => {
   const colores = {
@@ -38,6 +39,7 @@ const getIconoClase = (clase) => {
 
 export default function CartaComponent({ carta, onClick }) {
   const esHuevoCombate = isCombatEggCategory(carta.categoria);
+  const cardImage = getCardImageBySerial(carta.serial);
 
   return (
     <div
@@ -59,8 +61,12 @@ export default function CartaComponent({ carta, onClick }) {
         )}
       </div>
 
-      <div className="aspect-[2/3] bg-gradient-to-br from-yellow-100 to-orange-200 rounded-lg mb-2 flex items-center justify-center border-2 border-gray-300">
-        <span className="text-6xl">🥚</span>
+      <div className="bg-gradient-to-br from-yellow-100 to-orange-200 rounded-lg mb-2 flex items-center justify-center border-2 border-gray-300 overflow-hidden">
+        {cardImage ? (
+          <img src={cardImage} alt={carta.nombre} className="w-full h-full object-cover" loading="lazy" />
+        ) : (
+          <span className="text-6xl">🥚</span>
+        )}
       </div>
 
       <h3 className="font-bold text-sm text-center text-gray-800 mb-1 line-clamp-2">{carta.nombre}</h3>

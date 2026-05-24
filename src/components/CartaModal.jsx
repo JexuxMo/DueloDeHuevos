@@ -1,10 +1,12 @@
 import { X } from 'lucide-react';
 import { getCategoryLabel, isCombatEggCategory } from '../utils/cardCategory';
+import { getCardImageBySerial } from '../utils/cardImageMap';
 
 export default function CartaModal({ carta, onClose }) {
   if (!carta) return null;
 
   const esHuevoCombate = isCombatEggCategory(carta.categoria);
+  const cardImage = getCardImageBySerial(carta.serial);
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50" onClick={onClose}>
@@ -20,8 +22,12 @@ export default function CartaModal({ carta, onClose }) {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="aspect-[2/3] bg-gradient-to-br from-yellow-100 to-orange-200 rounded-xl flex items-center justify-center border-4 border-orange-500">
-            <span className="text-9xl">🥚</span>
+          <div className="bg-gradient-to-br from-yellow-100 to-orange-200 rounded-xl flex items-center justify-center border-4 border-orange-500 overflow-hidden">
+            {cardImage ? (
+              <img src={cardImage} alt={carta.nombre} className="w-full h-full object-cover" />
+            ) : (
+              <span className="text-9xl">🥚</span>
+            )}
           </div>
 
           <div className="space-y-4">
