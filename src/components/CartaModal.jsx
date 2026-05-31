@@ -1,8 +1,37 @@
+import { useEffect } from 'react'; // 1. Importar useEffect
 import { X } from 'lucide-react';
 import { getCategoryLabel, isCombatEggCategory } from '../utils/cardCategory';
 import { getCardImageBySerial } from '../utils/cardImageMap';
 
 export default function CartaModal({ carta, onClose }) {
+
+  //Añadir el bloqueo de scroll
+  useEffect(() => {
+    if (carta) {
+      // Guardar la posición actual del scroll
+      const scrollY = window.scrollY;
+      
+      // Aplicar estilos al body para bloquear el scroll
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.overflow = 'hidden';
+
+      // Función de limpieza: se ejecuta cuando el modal se cierra
+      return () => {
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.overflow = '';
+        
+        // Restaurar el scroll a donde estaba el usuario
+        window.scrollTo(0, scrollY);
+      };
+    }
+  }, [carta]); // Se ejecuta cada vez que 'carta' cambia (se abre o cierra)
+
   if (!carta) return null;
 
   const esHuevoCombate = isCombatEggCategory(carta.categoria);
