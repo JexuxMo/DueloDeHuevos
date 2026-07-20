@@ -75,36 +75,32 @@ export default function CartaModal({ carta, onClose }) {
               <p className="font-bold text-lg">{carta.clase}</p>
             </div>
 
-            {esHuevoCombate && (
-              <>
-                <div>
-                  <p className="text-sm text-gray-600">Nivel</p>
-                  <div className="flex space-x-1">
-                    {[...Array(carta.nivel)].map((_, i) => (
-                      <span key={i} className="text-yellow-400 text-2xl">
-                        ⭐
-                      </span>
-                    ))}
-                  </div>
-                </div>
+{esHuevoCombate && (
+               <>
+                 <div>
+                   <p className="text-sm text-gray-600">Nivel</p>
+                   <div className="flex space-x-1">
+                     <span className="font-bold text-lg">{carta.nivel}</span>
+                   </div>
+                 </div>
 
-                <div>
-                  <p className="text-sm text-gray-600">Tipo</p>
-                  <p className="font-bold text-lg">{carta.tipo}</p>
-                </div>
+                 <div>
+                   <p className="text-sm text-gray-600">Tipo</p>
+                   <p className="font-bold text-lg">{carta.tipo}</p>
+                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-sm text-gray-600">ATA</p>
-                    <p className="font-bold text-2xl text-red-600">{carta.ataque}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">DEF</p>
-                    <p className="font-bold text-2xl text-blue-600">{carta.defensa}</p>
-                  </div>
-                </div>
-              </>
-            )}
+                 <div className="grid grid-cols-2 gap-4">
+                   <div>
+                     <p className="text-sm text-gray-600">ATA</p>
+                     <p className="font-bold text-2xl text-red-600 text-red-600">{carta.ataque}</p>
+                   </div>
+                   <div>
+                     <p className="text-sm text-gray-600">DEF</p>
+                     <p className="font-bold text-2xl text-blue-600">{carta.defensa}</p>
+                   </div>
+                 </div>
+               </>
+             )}
 
             {carta.efecto && (
               <div>

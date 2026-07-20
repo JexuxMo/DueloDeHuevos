@@ -1,5 +1,12 @@
 import { getCategoryLabel, isCombatEggCategory } from '../utils/cardCategory';
 import { getCardImageBySerial } from '../utils/cardImageMap';
+import claraIcon from '../assets/icons/clara_icon.png';
+import yemaIcon from '../assets/icons/yema_icon.png';
+import cascaronIcon from '../assets/icons/cascaron_icon.png';
+import podridoIcon from '../assets/icons/podrido_icon.png';
+import hechizoIcon from '../assets/icons/hechizo_icon.png';
+import trampaIcon from '../assets/icons/trampa_icon.png';
+import encantamientoIcon from '../assets/icons/encantamiento_icon.png';
 
 const getColorClase = (clase) => {
   const colores = {
@@ -21,20 +28,16 @@ const getColorClase = (clase) => {
 
 const getIconoClase = (clase) => {
   const iconos = {
-    Clara: '💧',
-    Yema: '🌟',
-    Cascarón: '🛡️',
-    Podrido: '💀',
-    Hechizo: '✨',
-    Trampa: '🪤',
-    Encantamiento: '⚡',
-    'Encantamiento fuerte': '🔥',
-    'Encantamiento débil': '💫',
-    'Encantamiento Fuerte': '🔥',
-    'Encantamiento Débil': '💫',
+    Clara: claraIcon,
+    Yema: yemaIcon,
+    Cascarón: cascaronIcon,
+    Podrido: podridoIcon,
+    Hechizo: hechizoIcon,
+    Trampa: trampaIcon,
+    Encantamiento: encantamientoIcon,
   };
 
-  return iconos[clase] || '🥚';
+  return iconos[clase] || null;
 };
 
 export default function CartaComponent({ carta, onClick }) {
@@ -49,14 +52,14 @@ export default function CartaComponent({ carta, onClick }) {
       <div
         className={`bg-gradient-to-r ${getColorClase(carta.clase)} rounded-lg p-2 mb-2 flex items-center justify-between`}
       >
-        <span className="text-2xl">{getIconoClase(carta.clase)}</span>
+        {getIconoClase(carta.clase) ? (
+          <img src={getIconoClase(carta.clase)} alt={carta.clase} className="w-8 h-8 object-contain" />
+        ) : (
+          <span className="text-2xl">🥚</span>
+        )}
         {esHuevoCombate && carta.nivel && (
           <div className="flex space-x-1">
-            {[...Array(carta.nivel)].map((_, i) => (
-              <span key={i} className="text-yellow-400">
-                ⭐
-              </span>
-            ))}
+            <span className="font-bold text-lg text-white">Rango: {carta.nivel}</span>
           </div>
         )}
       </div>

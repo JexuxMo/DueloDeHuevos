@@ -12,6 +12,7 @@ export default function CollectionPage() {
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('todas');
+  const [selectedSeries, setSelectedSeries] = useState('todas');
   const [selectedCarta, setSelectedCarta] = useState(null);
 
   useEffect(() => {
@@ -41,10 +42,19 @@ export default function CollectionPage() {
     return ['todas', ...existingOrdered, ...extras];
   }, [cartas]);
 
+  const seriesButtons = ['todas', 'Serie 1', 'Serie 2', 'Serie 3', 'Serie 4', 'Serie 5'];
+
+  const getSeriesPrefix = (series) => {
+    const map = { 'Serie 1': 'DHO-S1' };
+    return map[series] || null;
+  };
+
   const filteredCartas = cartas.filter((carta) => {
     const matchesSearch = carta.nombre.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'todas' || carta.categoria === selectedCategory;
-    return matchesSearch && matchesCategory;
+    const prefix = getSeriesPrefix(selectedSeries);
+    const matchesSeries = selectedSeries === 'todas' || (prefix && carta.serial.startsWith(prefix));
+    return matchesSearch && matchesCategory && matchesSeries;
   });
 
   if (loading) {
@@ -89,6 +99,32 @@ export default function CollectionPage() {
             className="w-full pl-10 pr-4 py-3 bg-gray-800 border border-yellow-500 rounded-lg text-white focus:outline-none focus:border-yellow-400"
           />
         </div>
+      </div>
+
+      <div className="mb-4 flex flex-wrap gap-2">
+        {seriesButtons.map((series) => {
+          const isUnavailable = ['Serie 2', 'Serie 3', 'Serie 4', 'Serie 5'].includes(series);
+          return (
+            <div
+              key={series}
+              className={`relative px-4 py-2 rounded-lg font-bold transition-colors ${
+                isUnavailable
+                  ? 'bg-gray-800 text-gray-500 cursor-not-allowed border border-dashed border-gray-600'
+                  : selectedSeries === series
+                    ? 'bg-yellow-600 text-white cursor-pointer'
+                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600 cursor-pointer'
+              }`}
+              onClick={() => !isUnavailable && setSelectedSeries(series)}
+            >
+              {series === 'todas' ? 'Todas' : series}
+              {isUnavailable && (
+                <span className="absolute -top-3 -right-2 bg-gray-900 text-yellow-400 text-[10px] px-1.5 py-0.5 rounded-full border border-yellow-600 whitespace-nowrap">
+                  Próximamente
+                </span>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       <div className="mb-6 flex flex-wrap gap-2">
