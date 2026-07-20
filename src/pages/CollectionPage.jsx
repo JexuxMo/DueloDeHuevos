@@ -16,7 +16,7 @@ export default function CollectionPage() {
   const [selectedCarta, setSelectedCarta] = useState(null);
 
   useEffect(() => {
-    fetch('/data/cardsS1.json')
+    fetch(`/data/cardsS1.json?t=${Date.now()}`)
       .then((response) => response.json())
       .then((data) => {
         const payload = Array.isArray(data) ? data : [];
@@ -44,16 +44,16 @@ export default function CollectionPage() {
 
   const seriesButtons = ['todas', 'Serie 1', 'Serie 2', 'Serie 3', 'Serie 4', 'Serie 5'];
 
-  const getSeriesPrefix = (series) => {
-    const map = { 'Serie 1': 'DHO-S1' };
+  const getSerieValue = (series) => {
+    const map = { 'Serie 1': 's1', 'Serie 2': 's2', 'Serie 3': 's3', 'Serie 4': 's4', 'Serie 5': 's5' };
     return map[series] || null;
   };
 
   const filteredCartas = cartas.filter((carta) => {
     const matchesSearch = carta.nombre.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'todas' || carta.categoria === selectedCategory;
-    const prefix = getSeriesPrefix(selectedSeries);
-    const matchesSeries = selectedSeries === 'todas' || (prefix && carta.serial.startsWith(prefix));
+    const serieVal = getSerieValue(selectedSeries);
+    const matchesSeries = selectedSeries === 'todas' || carta.serie === serieVal;
     return matchesSearch && matchesCategory && matchesSeries;
   });
 

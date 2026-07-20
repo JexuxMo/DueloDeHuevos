@@ -1,5 +1,6 @@
 [
   {
+    "serie": "s1",
     "id": 1,
     "serial": "DHO-S1001",
     "categoria": "trampa",
@@ -13,6 +14,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 2,
     "serial": "DHO-S1002",
     "categoria": "hechizo",
@@ -26,6 +28,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 3,
     "serial": "DHO-S1003",
     "categoria": "hechizo",
@@ -39,6 +42,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 4,
     "serial": "DHO-S1004",
     "categoria": "huevo_de_combate",
@@ -52,6 +56,7 @@
     "ambientacion": "Caza todo tipo de huevos podridos. Tiene muchos... enemigos."
   },
   {
+    "serie": "s1",
     "id": 5,
     "serial": "DHO-S1005",
     "categoria": "huevo_de_combate",
@@ -65,6 +70,7 @@
     "ambientacion": "Toca la batería y ya te vio cara de tambor."
   },
   {
+    "serie": "s1",
     "id": 6,
     "serial": "DHO-S1006",
     "categoria": "huevo_de_combate",
@@ -78,6 +84,7 @@
     "ambientacion": "Agente del servicio secreto de la Gallina Reina. Con licencia para... conducir."
   },
   {
+    "serie": "s1",
     "id": 7,
     "serial": "DHO-S1007",
     "categoria": "trampa",
@@ -91,6 +98,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 8,
     "serial": "DHO-S1008",
     "categoria": "hechizo",
@@ -104,6 +112,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 9,
     "serial": "DHO-S1009",
     "categoria": "hechizo",
@@ -117,6 +126,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 10,
     "serial": "DHO-S1010",
     "categoria": "trampa",
@@ -130,6 +140,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 11,
     "serial": "DHO-S1011",
     "categoria": "trampa",
@@ -143,6 +154,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 12,
     "serial": "DHO-S1012",
     "categoria": "trampa",
@@ -156,6 +168,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 13,
     "serial": "DHO-S1013",
     "categoria": "huevo_de_combate",
@@ -169,6 +182,7 @@
     "ambientacion": "Se le perdió su compadre y está enojado."
   },
   {
+    "serie": "s1",
     "id": 14,
     "serial": "DHO-S1014",
     "categoria": "huevo_de_combate",
@@ -182,6 +196,7 @@
     "ambientacion": "No quiere que su compadre lo encuentre, así que se va a defender para que no quede testigo de su paradero."
   },
   {
+    "serie": "s1",
     "id": 15,
     "serial": "DHO-S1015",
     "categoria": "hechizo",
@@ -195,6 +210,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 16,
     "serial": "DHO-S1016",
     "categoria": "hechizo",
@@ -208,6 +224,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 17,
     "serial": "DHO-S1017",
     "categoria": "trampa",
@@ -221,6 +238,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 18,
     "serial": "DHO-S1018",
     "categoria": "hechizo",
@@ -234,6 +252,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 19,
     "serial": "DHO-S1019",
     "categoria": "hechizo",
@@ -247,6 +266,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 20,
     "serial": "DHO-S1020",
     "categoria": "trampa",
@@ -260,6 +280,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 21,
     "serial": "DHO-S1021",
     "categoria": "hechizo",
@@ -273,6 +294,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 22,
     "serial": "DHO-S1022",
     "categoria": "hechizo",
@@ -286,6 +308,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 23,
     "serial": "DHO-S1023",
     "categoria": "trampa",
@@ -299,6 +322,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 24,
     "serial": "DHO-S1024",
     "categoria": "encantamiento_debil",
@@ -312,6 +336,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 25,
     "serial": "DHO-S1025",
     "categoria": "huevo_de_combate",
@@ -325,6 +350,7 @@
     "ambientacion": "No me gusta hacerle daño a nadie."
   },
   {
+    "serie": "s1",
     "id": 26,
     "serial": "DHO-S1026",
     "categoria": "huevo_de_combate",
@@ -338,6 +364,7 @@
     "ambientacion": "Hay quienes tienen huevos de metal."
   },
   {
+    "serie": "s1",
     "id": 27,
     "serial": "DHO-S1027",
     "categoria": "huevo_de_combate",
@@ -351,6 +378,7 @@
     "ambientacion": "No te está diciendo 'amor y paz' sino que te va a golpear dos veces..."
   },
   {
+    "serie": "s1",
     "id": 28,
     "serial": "DHO-S1028",
     "categoria": "huevo_de_combate",
@@ -364,6 +392,7 @@
     "ambientacion": "Sonríe a la cámara."
   },
   {
+    "serie": "s1",
     "id": 29,
     "serial": "DHO-S1029",
     "categoria": "huevo_de_combate",
@@ -377,6 +406,7 @@
     "ambientacion": "Un golpe directo al huevo."
   },
   {
+    "serie": "s1",
     "id": 30,
     "serial": "DHO-S1030",
     "categoria": "huevo_de_combate",
@@ -390,6 +420,7 @@
     "ambientacion": "Y no está vacunado contra la rabia."
   },
   {
+    "serie": "s1",
     "id": 31,
     "serial": "DHO-S1031",
     "categoria": "huevo_de_combate",
@@ -403,6 +434,7 @@
     "ambientacion": "¡En la muerte no hay dolor... conmigo sí!"
   },
   {
+    "serie": "s1",
     "id": 32,
     "serial": "DHO-S1032",
     "categoria": "huevo_de_combate",
@@ -416,6 +448,7 @@
     "ambientacion": "Ya tiene fuego, ahora no sabe qué hacer con él."
   },
   {
+    "serie": "s1",
     "id": 33,
     "serial": "DHO-S1033",
     "categoria": "huevo_de_combate",
@@ -429,6 +462,7 @@
     "ambientacion": "Este huevo si se puso azul de frío."
   },
   {
+    "serie": "s1",
     "id": 34,
     "serial": "DHO-S1034",
     "categoria": "huevo_de_combate",
@@ -442,6 +476,7 @@
     "ambientacion": "Este huevo si está duro."
   },
   {
+    "serie": "s1",
     "id": 35,
     "serial": "DHO-S1035",
     "categoria": "huevo_de_combate",
@@ -455,6 +490,7 @@
     "ambientacion": "¿Qué fue primero, el huevo o el dinosaurio que puso el huevo?"
   },
   {
+    "serie": "s1",
     "id": 36,
     "serial": "DHO-S1036",
     "categoria": "huevo_de_combate",
@@ -468,6 +504,7 @@
     "ambientacion": "Se peleó con su mujer, así que viene enojado."
   },
   {
+    "serie": "s1",
     "id": 37,
     "serial": "DHO-S1037",
     "categoria": "huevo_de_combate",
@@ -481,6 +518,7 @@
     "ambientacion": "Con este huevo si te prendes."
   },
   {
+    "serie": "s1",
     "id": 38,
     "serial": "DHO-S1038",
     "categoria": "huevo_de_combate",
@@ -494,6 +532,7 @@
     "ambientacion": "¡Lo más importante es su familia!"
   },
   {
+    "serie": "s1",
     "id": 39,
     "serial": "DHO-S1039",
     "categoria": "huevo_de_combate",
@@ -507,6 +546,7 @@
     "ambientacion": "Tiene hambre y te vio cara de pizza."
   },
   {
+    "serie": "s1",
     "id": 40,
     "serial": "DHO-S1040",
     "categoria": "huevo_de_combate",
@@ -520,6 +560,7 @@
     "ambientacion": "Es costeño y es simpático, pero ahorita está enojado."
   },
   {
+    "serie": "s1",
     "id": 41,
     "serial": "DHO-S1041",
     "categoria": "huevo_de_combate",
@@ -533,6 +574,7 @@
     "ambientacion": "Está medio dormido, pero sueña que el contrincante es su suegra..."
   },
   {
+    "serie": "s1",
     "id": 42,
     "serial": "DHO-S1042",
     "categoria": "huevo_de_combate",
@@ -546,6 +588,7 @@
     "ambientacion": "Te sa ka tu mo le"
   },
   {
+    "serie": "s1",
     "id": 43,
     "serial": "DHO-S1043",
     "categoria": "huevo_de_combate",
@@ -559,6 +602,7 @@
     "ambientacion": "Huevillo al grito de guerra."
   },
   {
+    "serie": "s1",
     "id": 44,
     "serial": "DHO-S1044",
     "categoria": "huevo_de_combate",
@@ -572,6 +616,7 @@
     "ambientacion": "Es decir, que va en motocicleta."
   },
   {
+    "serie": "s1",
     "id": 45,
     "serial": "DHO-S1045",
     "categoria": "huevo_de_combate",
@@ -585,6 +630,7 @@
     "ambientacion": "Ni te imaginas lo que es capaz de obrar para defenderse."
   },
   {
+    "serie": "s1",
     "id": 46,
     "serial": "DHO-S1046",
     "categoria": "huevo_de_combate",
@@ -598,6 +644,7 @@
     "ambientacion": "Él sólo sabe que no sabe nada, es decir, es un verdadero analfabeto."
   },
   {
+    "serie": "s1",
     "id": 47,
     "serial": "DHO-S1047",
     "categoria": "huevo_de_combate",
@@ -611,6 +658,7 @@
     "ambientacion": "Este huevo quedó absolutamente loco después de la primera guerra de los huevos."
   },
   {
+    "serie": "s1",
     "id": 48,
     "serial": "DHO-S1048",
     "categoria": "huevo_de_combate",
@@ -624,6 +672,7 @@
     "ambientacion": "Sus versos relajan a los oponentes."
   },
   {
+    "serie": "s1",
     "id": 49,
     "serial": "DHO-S1049",
     "categoria": "hechizo",
@@ -637,6 +686,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 50,
     "serial": "DHO-S1050",
     "categoria": "huevo_de_combate",
@@ -650,6 +700,7 @@
     "ambientacion": "¡Hago esta maravilla y tu trampa se va a la basura!"
   },
   {
+    "serie": "s1",
     "id": 51,
     "serial": "DHO-S1051",
     "categoria": "hechizo",
@@ -663,6 +714,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 52,
     "serial": "DHO-S1052",
     "categoria": "huevo_de_combate",
@@ -676,6 +728,7 @@
     "ambientacion": "¡Me cae que qué huevos!"
   },
   {
+    "serie": "s1",
     "id": 53,
     "serial": "DHO-S1053",
     "categoria": "huevo_de_combate",
@@ -689,6 +742,7 @@
     "ambientacion": "¿Qué es lo que quiere el seguro social? ¡Salud! Pero antes te voy a romper tu..."
   },
   {
+    "serie": "s1",
     "id": 54,
     "serial": "DHO-S1054",
     "categoria": "huevo_de_combate",
@@ -702,6 +756,7 @@
     "ambientacion": "Me cae que te quiero mucho... pero ahorita no."
   },
   {
+    "serie": "s1",
     "id": 55,
     "serial": "DHO-S1055",
     "categoria": "hechizo",
@@ -715,6 +770,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 56,
     "serial": "DHO-S1056",
     "categoria": "hechizo",
@@ -728,6 +784,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 57,
     "serial": "DHO-S1057",
     "categoria": "hechizo",
@@ -741,6 +798,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 58,
     "serial": "DHO-S1058",
     "categoria": "hechizo",
@@ -754,6 +812,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 59,
     "serial": "DHO-S1059",
     "categoria": "hechizo",
@@ -767,6 +826,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 60,
     "serial": "DHO-S1060",
     "categoria": "huevo_de_combate",
@@ -780,6 +840,7 @@
     "ambientacion": "Esta bolita de popó es dura... o sea, de carácter duro."
   },
   {
+    "serie": "s1",
     "id": 61,
     "serial": "DHO-S1061",
     "categoria": "hechizo",
@@ -793,6 +854,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 62,
     "serial": "DHO-S1062",
     "categoria": "hechizo",
@@ -806,6 +868,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 63,
     "serial": "DHO-S1063",
     "categoria": "huevo_de_combate",
@@ -819,6 +882,7 @@
     "ambientacion": "Este huevo es todo un caballero... y defiende los derechos de su pueblo."
   },
   {
+    "serie": "s1",
     "id": 64,
     "serial": "DHO-S1064",
     "categoria": "huevo_de_combate",
@@ -832,6 +896,7 @@
     "ambientacion": "No le tengas miedo, muerde pero si suelta... después de un rato."
   },
   {
+    "serie": "s1",
     "id": 65,
     "serial": "DHO-S1065",
     "categoria": "huevo_de_combate",
@@ -845,6 +910,7 @@
     "ambientacion": "Te voy a comer con un buen tinto."
   },
   {
+    "serie": "s1",
     "id": 66,
     "serial": "DHO-S1066",
     "categoria": "huevo_de_combate",
@@ -858,6 +924,7 @@
     "ambientacion": "Un huevito muy tonto, pero la ignorancia puede ser peligrosa."
   },
   {
+    "serie": "s1",
     "id": 67,
     "serial": "DHO-S1067",
     "categoria": "huevo_de_combate",
@@ -871,6 +938,7 @@
     "ambientacion": "Ten cuidado, está en sus días."
   },
   {
+    "serie": "s1",
     "id": 68,
     "serial": "DHO-S1068",
     "categoria": "huevo_de_combate",
@@ -884,6 +952,7 @@
     "ambientacion": "Este huevo sí confunde locura con estupidez."
   },
   {
+    "serie": "s1",
     "id": 69,
     "serial": "DHO-S1069",
     "categoria": "huevo_de_combate",
@@ -897,6 +966,7 @@
     "ambientacion": "Tienes tres segundos para correr, bwuaana..."
   },
   {
+    "serie": "s1",
     "id": 70,
     "serial": "DHO-S1070",
     "categoria": "huevo_de_combate",
@@ -910,6 +980,7 @@
     "ambientacion": "Es un huevo irresistible."
   },
   {
+    "serie": "s1",
     "id": 71,
     "serial": "DHO-S1071",
     "categoria": "huevo_de_combate",
@@ -923,6 +994,7 @@
     "ambientacion": "Hace lo mismo que los demás, pero no puede asolearse."
   },
   {
+    "serie": "s1",
     "id": 72,
     "serial": "DHO-S1072",
     "categoria": "huevo_de_combate",
@@ -936,6 +1008,7 @@
     "ambientacion": "Quién sabe qué se fuma pero está difícil vencerlo."
   },
   {
+    "serie": "s1",
     "id": 73,
     "serial": "DHO-S1073",
     "categoria": "huevo_de_combate",
@@ -949,6 +1022,7 @@
     "ambientacion": "Él comprende la física involucrada en cualquier pelea, así que con sus fórmulas y cálculos, te rompe la matemática."
   },
   {
+    "serie": "s1",
     "id": 74,
     "serial": "DHO-S1074",
     "categoria": "huevo_de_combate",
@@ -962,6 +1036,7 @@
     "ambientacion": "Su mejor arma es su vocabulario..."
   },
   {
+    "serie": "s1",
     "id": 75,
     "serial": "DHO-S1075",
     "categoria": "huevo_de_combate",
@@ -975,6 +1050,7 @@
     "ambientacion": "¡Como te ves me vi y como me ves te verás!"
   },
   {
+    "serie": "s1",
     "id": 76,
     "serial": "DHO-S1076",
     "categoria": "huevo_de_combate",
@@ -988,6 +1064,7 @@
     "ambientacion": "Yo soy huevo equilibrado."
   },
   {
+    "serie": "s1",
     "id": 77,
     "serial": "DHO-S1077",
     "categoria": "huevo_de_combate",
@@ -1001,6 +1078,7 @@
     "ambientacion": "¡Los golpes son hoy, hoy, hoy!"
   },
   {
+    "serie": "s1",
     "id": 78,
     "serial": "DHO-S1078",
     "categoria": "hechizo",
@@ -1014,6 +1092,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 79,
     "serial": "DHO-S1079",
     "categoria": "trampa",
@@ -1027,6 +1106,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 80,
     "serial": "DHO-S1080",
     "categoria": "hechizo",
@@ -1040,6 +1120,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 81,
     "serial": "DHO-S1081",
     "categoria": "hechizo",
@@ -1053,6 +1134,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 82,
     "serial": "DHO-S1082",
     "categoria": "huevo_de_combate",
@@ -1066,6 +1148,7 @@
     "ambientacion": "Caerás noqueado ante su belleza."
   },
   {
+    "serie": "s1",
     "id": 83,
     "serial": "DHO-S1083",
     "categoria": "huevo_de_combate",
@@ -1079,6 +1162,7 @@
     "ambientacion": "A ver, ¿qué desayunó?"
   },
   {
+    "serie": "s1",
     "id": 84,
     "serial": "DHO-S1084",
     "categoria": "huevo_de_combate",
@@ -1092,6 +1176,7 @@
     "ambientacion": "De un grito te manda muy lejos."
   },
   {
+    "serie": "s1",
     "id": 85,
     "serial": "DHO-S1085",
     "categoria": "hechizo",
@@ -1105,6 +1190,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 86,
     "serial": "DHO-S1086",
     "categoria": "encantamiento_fuerte",
@@ -1118,6 +1204,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 87,
     "serial": "DHO-S1087",
     "categoria": "huevo_de_combate",
@@ -1131,6 +1218,7 @@
     "ambientacion": "El maestro huevo Zen lo enseñó a ser huevo equilibrado, el único problema es que es un limón."
   },
   {
+    "serie": "s1",
     "id": 88,
     "serial": "DHO-S1088",
     "categoria": "trampa",
@@ -1144,6 +1232,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 89,
     "serial": "DHO-S1089",
     "categoria": "huevo_de_combate",
@@ -1157,6 +1246,7 @@
     "ambientacion": "Son huevos muy unidos... pero malos."
   },
   {
+    "serie": "s1",
     "id": 90,
     "serial": "DHO-S1090",
     "categoria": "huevo_de_combate",
@@ -1170,6 +1260,7 @@
     "ambientacion": "No les gusta que los magullen, por eso son intocables."
   },
   {
+    "serie": "s1",
     "id": 91,
     "serial": "DHO-S1091",
     "categoria": "encantamiento_fuerte",
@@ -1183,6 +1274,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 92,
     "serial": "DHO-S1092",
     "categoria": "huevo_de_combate",
@@ -1196,6 +1288,7 @@
     "ambientacion": "Más mezcla maestro o le remojo los tabiques."
   },
   {
+    "serie": "s1",
     "id": 93,
     "serial": "DHO-S1093",
     "categoria": "trampa",
@@ -1209,6 +1302,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 94,
     "serial": "DHO-S1094",
     "categoria": "huevo_de_combate",
@@ -1222,6 +1316,7 @@
     "ambientacion": "Llama a 1 800 LKEDA DANCE"
   },
   {
+    "serie": "s1",
     "id": 95,
     "serial": "DHO-S1095",
     "categoria": "hechizo",
@@ -1235,6 +1330,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 96,
     "serial": "DHO-S1096",
     "categoria": "huevo_de_combate",
@@ -1248,6 +1344,7 @@
     "ambientacion": "Si por las cadenas intentas pasar con una lana le vas a entrar."
   },
   {
+    "serie": "s1",
     "id": 97,
     "serial": "DHO-S1097",
     "categoria": "hechizo",
@@ -1261,6 +1358,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 98,
     "serial": "DHO-S1098",
     "categoria": "encantamiento_debil",
@@ -1274,6 +1372,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 99,
     "serial": "DHO-S1099",
     "categoria": "huevo_de_combate",
@@ -1287,6 +1386,7 @@
     "ambientacion": "¡No muerdo... muy fuerte!"
   },
   {
+    "serie": "s1",
     "id": 100,
     "serial": "DHO-S1100",
     "categoria": "trampa",
@@ -1300,6 +1400,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 101,
     "serial": "DHO-S1101",
     "categoria": "hechizo",
@@ -1313,6 +1414,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 102,
     "serial": "DHO-S1102",
     "categoria": "trampa",
@@ -1326,6 +1428,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 103,
     "serial": "DHO-S1103",
     "categoria": "encantamiento_fuerte",
@@ -1339,6 +1442,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 104,
     "serial": "DHO-S1104",
     "categoria": "huevo_de_combate",
@@ -1352,6 +1456,7 @@
     "ambientacion": "Un acorde de su guitarra y tus sesos... o sea tu cerebro, será destruido."
   },
   {
+    "serie": "s1",
     "id": 105,
     "serial": "DHO-S1105",
     "categoria": "trampa",
@@ -1365,6 +1470,7 @@
     "ambientacion": ""
   },
   {
+    "serie": "s1",
     "id": 106,
     "serial": "DHO-S1106",
     "categoria": "trampa",

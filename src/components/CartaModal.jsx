@@ -78,7 +78,7 @@ export default function CartaModal({ carta, onClose }) {
 {esHuevoCombate && (
                <>
                  <div>
-                   <p className="text-sm text-gray-600">Nivel</p>
+                   <p className="text-sm text-gray-600">Rango</p>
                    <div className="flex space-x-1">
                      <span className="font-bold text-lg">{carta.nivel}</span>
                    </div>
