@@ -1,77 +1,14 @@
-import { useState } from 'react';
-import Navigation from './components/Navigation';
-import { AuthProvider } from './context/AuthContext';
-import { useAuth } from './context/useAuth';
+import { useEffect } from 'react';
 import CollectionPage from './pages/CollectionPage';
-import DeckBuilderPage from './pages/DeckBuilderPage';
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import PlayPage from './pages/PlayPage';
-import ProfilePage from './pages/ProfilePage';
-import RankingPage from './pages/RankingPage';
-
-function AppContent() {
-  const [currentPage, setCurrentPage] = useState('login');
-  const { user, logout, loading } = useAuth();
-
-  const handleLogout = () => {
-    logout();
-    setCurrentPage('login');
-  };
-
-  const renderPage = () => {
-    if (!user) return <LoginPage onNavigate={setCurrentPage} />;
-
-    switch (currentPage) {
-      case 'home':
-        return <HomePage />;
-      case 'play':
-        return <PlayPage />;
-      case 'deckbuilder':
-        return <DeckBuilderPage />;
-      case 'collection':
-        return <CollectionPage />;
-      case 'ranking':
-        return <RankingPage />;
-      case 'profile':
-        return <ProfilePage />;
-      default:
-        return <HomePage />;
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-400 via-yellow-200 to-slate-400 flex items-center justify-center">
-        <p className="text-gray-900 text-xl font-bold">Cargando sesión...</p>
-      </div>
-    );
-  }
-
-  if (!user) return renderPage();
-
-  return (
-    <div
-      className={`min-h-screen bg-gradient-to-br from-slate-400 via-yellow-200 to-slate-400 ${
-        currentPage === 'deckbuilder' ? 'overflow-hidden' : ''
-      }`}
-    >
-      <Navigation currentPage={currentPage} onNavigate={setCurrentPage} onLogout={handleLogout} />
-      <main
-        className={`max-w-7xl mx-auto ${
-          currentPage === 'deckbuilder' ? 'h-[calc(100dvh-4rem)] overflow-hidden' : ''
-        }`}
-      >
-        {renderPage()}
-      </main>
-    </div>
-  );
-}
 
 export default function DueloDeHuevos() {
+  useEffect(() => {
+    document.title = 'Galería | Duelo de Huevos';
+  }, []);
+
   return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
+    <main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(255,224,138,0.9),_rgba(15,23,42,0.96)_58%)] text-slate-900">
+      <CollectionPage />
+    </main>
   );
 }
