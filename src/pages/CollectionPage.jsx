@@ -14,6 +14,8 @@ export default function CollectionPage() {
   const [selectedCategory, setSelectedCategory] = useState('todas');
   const [selectedSeries, setSelectedSeries] = useState('todas');
   const [selectedCarta, setSelectedCarta] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const cardsPerPage = 48;
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}data/cardsS1.json?t=${Date.now()}`)
@@ -57,6 +59,17 @@ export default function CollectionPage() {
     return matchesSearch && matchesCategory && matchesSeries;
   });
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedCategory, selectedSeries]);
+
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(filteredCartas.length / cardsPerPage));
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, filteredCartas.length]);
+
   if (loading) {
     return (
       <div className="px-4 py-16 sm:px-6 lg:px-8">
@@ -81,6 +94,9 @@ export default function CollectionPage() {
 
   const totalCartas = cartas.length;
   const totalFiltradas = filteredCartas.length;
+  const totalPages = Math.max(1, Math.ceil(totalFiltradas / cardsPerPage));
+  const startIndex = (currentPage - 1) * cardsPerPage;
+  const paginatedCartas = filteredCartas.slice(startIndex, startIndex + cardsPerPage);
 
   return (
     <div className="px-4 py-6 sm:px-6 lg:px-8">
@@ -188,12 +204,47 @@ export default function CollectionPage() {
       </section>
 
       <section className="mx-auto mt-6 max-w-7xl">
-        {filteredCartas.length > 0 ? (
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-6">
-            {filteredCartas.map((carta) => (
-              <CartaComponent key={carta.id} carta={carta} onClick={() => setSelectedCarta(carta)} />
-            ))}
-          </div>
+        {paginatedCartas.length > 0 ? (
+          <>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-6">
+              {paginatedCartas.map((carta) => (
+                <CartaComponent key={carta.id} carta={carta} onClick={() => setSelectedCarta(carta)} />
+              ))}
+            </div>
+
+            <div className="mx-auto mt-6 max-w-7xl mb-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/10 bg-slate-950/35 px-4 py-3 text-white backdrop-blur">
+              <p className="text-sm text-slate-300">
+                Mostrando {startIndex + 1}-{Math.min(startIndex + cardsPerPage, totalFiltradas)} de {totalFiltradas}
+              </p>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCurrentPage((page) => Math.max(1, page - 1))
+                    window.scrollTo({ top: 250, behavior: 'smooth' });
+                  }}
+                  disabled={currentPage === 1}
+                  className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-bold text-slate-200 transition disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  Anterior
+                </button>
+                <span className="text-sm font-semibold text-yellow-300">
+                  Página {currentPage} de {totalPages}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCurrentPage((page) => Math.min(totalPages, page + 1))
+                    window.scrollTo({ top: 250, behavior: 'smooth' });
+                  }}
+                  disabled={currentPage === totalPages}
+                  className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-bold text-slate-200 transition disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  Siguiente
+                </button>
+              </div>
+            </div>
+          </>
         ) : (
           <div className="rounded-[2rem] border border-white/10 bg-slate-950/35 px-6 py-16 text-center text-white backdrop-blur">
             <p className="text-2xl font-black">No se encontraron cartas</p>
