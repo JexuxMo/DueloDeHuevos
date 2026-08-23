@@ -149,8 +149,6 @@ export default function DeckBuilderPage() {
     ],
   );
 
-  const hasFilteredOverflow = filteredCards.length > 10;
-
   const createNewDeck = () => {
     setDecks((prev) => {
       const next = createDeck(prev.length);
@@ -385,7 +383,7 @@ export default function DeckBuilderPage() {
           </section>
         </div>
 
-        <div className="min-w-0 min-h-0 lg:h-full grid grid-rows-[165px_minmax(0,1fr)_170px] xl:grid-rows-[185px_minmax(0,1fr)_190px] 2xl:grid-rows-[195px_minmax(0,1fr)_210px] gap-3">
+        <div className="min-w-0 min-h-0 lg:h-full grid grid-rows-[180px_minmax(0,1fr)_180px] xl:grid-rows-[200px_minmax(0,1fr)_200px] 2xl:grid-rows-[220px_minmax(0,1fr)_220px] gap-3">
           <section className="bg-gray-800 border border-yellow-500 rounded-xl p-3 overflow-hidden h-full flex flex-col">
             <div className="grid grid-cols-1 lg:grid-cols-[180px_minmax(0,1fr)] gap-3 h-full">
               <div className="bg-gray-900/70 border border-gray-700 rounded-xl p-2 min-h-0 overflow-y-auto overscroll-contain">
@@ -419,7 +417,7 @@ export default function DeckBuilderPage() {
                 </div>
               </div>
 
-              <div className="min-w-0 min-h-0 flex flex-col">
+              <div className="min-w-0 min-h-0 flex-col">
                 <div className="flex gap-2 mb-2">
                   <div className="relative flex-1">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -501,27 +499,15 @@ export default function DeckBuilderPage() {
                 {loading && <p className="text-gray-300 text-sm">Cargando cartas...</p>}
                 {!loading && error && <p className="text-red-300 text-sm">{error}</p>}
 
-                <div className="h-[95px] xl:h-auto xl:flex-1 min-h-0 overflow-hidden">
+                <div className="h-[125px] xl:h-auto xl:flex-1 min-h-0 overflow-hidden">
                   {!loading && !error && filteredCards.length > 0 && (
-                    <div className={hasFilteredOverflow ? 'w-full overflow-x-auto pb-2' : ''}>
-                      <div
-                        className={!hasFilteredOverflow ? 'grid grid-cols-2 md:grid-cols-5 xl:grid-cols-10 gap-2 justify-items-center content-start' : ''}
-                        style={
-                          hasFilteredOverflow
-                            ? {
-                                display: 'grid',
-                                gridAutoFlow: 'column',
-                                gridAutoColumns: '6rem',
-                                gap: '0.5rem',
-                                minWidth: 'max-content',
-                              }
-                            : undefined
-                        }
-                      >
+                    <div className="h-full overflow-x-auto overflow-y-hidden overscroll-contain pb-2">
+                      <div className="flex min-w-max items-start gap-2">
                         {filteredCards.map((card) => (
                           <DeckCardTile
                             key={`search-${card.id}`}
                             card={card}
+                            compact
                             onClick={() => setSelectedCard(card)}
                             onDragStart={beginDragFromSearch(card)}
                             onDragEnd={() => {
