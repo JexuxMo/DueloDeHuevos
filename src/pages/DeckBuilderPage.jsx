@@ -4,7 +4,6 @@ import DeckCardTile from '../components/DeckCardTile';
 import { CATEGORY_ORDER, getCategoryLabel, isCombatEggCategory } from '../utils/cardCategory';
 import { parseCardsPayload } from '../types/card';
 
-const MAIN_DECK_LIMIT = 30;
 const RESERVE_DECK_LIMIT = 10;
 const DRAG_CARD_MIME = 'application/x-deck-card';
 const CANVAS_WIDTH = 1280;
@@ -271,7 +270,6 @@ export default function DeckBuilderPage() {
         if (deck.id !== selectedDeckId) return deck;
 
         if (payload.source === 'search') {
-          if (targetZone === 'main' && deck.mainCards.length >= MAIN_DECK_LIMIT) return deck;
           if (targetZone === 'reserve' && deck.reserveCards.length >= RESERVE_DECK_LIMIT) return deck;
           if (countTotalCopiesInDeck(deck, payload.card.id) >= 3) return deck;
 
@@ -290,7 +288,6 @@ export default function DeckBuilderPage() {
 
         const sourceIndex = sourceCards.findIndex((card) => card.deckEntryId === payload.deckEntryId);
         if (sourceIndex === -1) return deck;
-        if (targetZone === 'main' && destinationCards.length >= MAIN_DECK_LIMIT) return deck;
         if (targetZone === 'reserve' && destinationCards.length >= RESERVE_DECK_LIMIT) return deck;
 
         const movingCard = sourceCards[sourceIndex];
@@ -585,7 +582,7 @@ export default function DeckBuilderPage() {
                   <div className="flex h-full min-h-0 flex-col">
                     {selectedDeck && (
                       <p className="mb-3 text-sm text-gray-300">
-                        Mazo principal: {mainDeckCards.length}/{MAIN_DECK_LIMIT}
+                        Mazo principal: {mainDeckCards.length}
                       </p>
                     )}
 
