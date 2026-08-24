@@ -51,16 +51,12 @@ function AppContent() {
   if (!user) return renderPage();
 
   return (
-    <div
-      className={`min-h-screen bg-gradient-to-br from-slate-400 via-yellow-200 to-slate-400 ${
-        currentPage === 'deckbuilder' ? 'overflow-hidden' : ''
-      }`}
-    >
+    <div className="min-h-screen bg-gradient-to-br from-slate-400 via-yellow-200 to-slate-400">
       <Navigation currentPage={currentPage} onNavigate={setCurrentPage} onLogout={handleLogout} />
       <main
         className={
           currentPage === 'deckbuilder'
-            ? 'w-full h-[calc(100dvh-4rem)] overflow-hidden'
+            ? 'w-full'
             : 'max-w-7xl mx-auto'
         }
       >

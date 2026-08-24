@@ -8,7 +8,7 @@ const MAIN_DECK_LIMIT = 30;
 const RESERVE_DECK_LIMIT = 10;
 const DRAG_CARD_MIME = 'application/x-deck-card';
 const CANVAS_WIDTH = 1280;
-const CANVAS_HEIGHT = 704;
+const CANVAS_HEIGHT = 904;
 
 const createDeck = (index) => ({
   id: Date.now() + index,
@@ -74,19 +74,6 @@ export default function DeckBuilderPage() {
       });
   }, []);
 
-  useEffect(() => {
-    const previousBodyOverflow = document.body.style.overflow;
-    const previousHtmlOverflow = document.documentElement.style.overflow;
-
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
-
-    return () => {
-      document.body.style.overflow = previousBodyOverflow;
-      document.documentElement.style.overflow = previousHtmlOverflow;
-    };
-  }, []);
-
   useLayoutEffect(() => {
     const viewport = viewportRef.current;
     if (!viewport) return undefined;
@@ -94,10 +81,10 @@ export default function DeckBuilderPage() {
     let frameId = 0;
 
     const updateScale = () => {
-      const { width, height } = viewport.getBoundingClientRect();
-      if (!width || !height) return;
+      const { width } = viewport.getBoundingClientRect();
+      if (!width) return;
 
-      const nextScale = Math.min(width / CANVAS_WIDTH, height / CANVAS_HEIGHT);
+      const nextScale = Math.min(1, width / CANVAS_WIDTH);
       setCanvasScale(nextScale);
     };
 
@@ -339,10 +326,16 @@ export default function DeckBuilderPage() {
   const reserveDeckCards = selectedDeck?.reserveCards ?? [];
 
   return (
-    <div ref={viewportRef} className="h-full w-full min-h-0 overflow-hidden">
-      <div className="flex h-full w-full items-center justify-center overflow-hidden">
+    <div ref={viewportRef} className="w-full overflow-x-hidden">
+      <div
+        className="mx-auto"
+        style={{
+          width: `${CANVAS_WIDTH * canvasScale}px`,
+          height: `${CANVAS_HEIGHT * canvasScale}px`,
+        }}
+      >
         <div
-          className="h-[704px] w-[1280px] shrink-0 origin-center"
+          className="h-[904px] w-[1280px] origin-top-left"
           style={{ transform: `scale(${canvasScale})` }}
         >
           <div className="grid h-full grid-rows-[36px_minmax(0,1fr)] gap-3 p-6">
@@ -358,7 +351,7 @@ export default function DeckBuilderPage() {
             </div>
 
             <div className="grid min-h-0 grid-cols-[300px_920px] gap-3">
-              <div className="grid min-h-0 grid-rows-[106px_306px_minmax(0,1fr)_60px] gap-3">
+              <div className="grid min-h-0 grid-rows-[106px_306px_300px_60px] gap-3">
                 <section className="h-full overflow-hidden rounded-xl border border-yellow-500 bg-gray-800 p-2">
                   <div className="h-full space-y-1 overflow-y-auto overscroll-contain pr-1">
                     {decks.map((deck) => (
@@ -431,7 +424,7 @@ export default function DeckBuilderPage() {
                 </section>
               </div>
 
-              <div className="grid min-h-0 grid-rows-[180px_minmax(0,1fr)_100px] gap-3">
+              <div className="grid min-h-0 grid-rows-[180px_minmax(0,1fr)_200px] gap-3">
                 <section className="flex h-full flex-col overflow-hidden rounded-xl border border-yellow-500 bg-gray-800 p-2">
                   <div className="grid h-full grid-cols-[180px_minmax(0,1fr)] gap-3">
                     <div className="min-h-0 overflow-y-auto overscroll-contain rounded-xl border border-gray-700 bg-gray-900/70 p-2">
