@@ -58,9 +58,11 @@ function AppContent() {
     >
       <Navigation currentPage={currentPage} onNavigate={setCurrentPage} onLogout={handleLogout} />
       <main
-        className={`max-w-7xl mx-auto ${
-          currentPage === 'deckbuilder' ? 'h-[calc(100dvh-4rem)] overflow-hidden' : ''
-        }`}
+        className={
+          currentPage === 'deckbuilder'
+            ? 'w-full h-[calc(100dvh-4rem)] overflow-hidden'
+            : 'max-w-7xl mx-auto'
+        }
       >
         {renderPage()}
       </main>

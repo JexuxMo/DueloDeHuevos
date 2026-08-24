@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Plus, Search } from 'lucide-react';
 import DeckCardTile from '../components/DeckCardTile';
 import { CATEGORY_ORDER, getCategoryLabel, isCombatEggCategory } from '../utils/cardCategory';
@@ -7,6 +7,8 @@ import { parseCardsPayload } from '../types/card';
 const MAIN_DECK_LIMIT = 30;
 const RESERVE_DECK_LIMIT = 10;
 const DRAG_CARD_MIME = 'application/x-deck-card';
+const CANVAS_WIDTH = 1280;
+const CANVAS_HEIGHT = 704;
 
 const createDeck = (index) => ({
   id: Date.now() + index,
@@ -43,6 +45,8 @@ export default function DeckBuilderPage() {
   const [selectedDeckId, setSelectedDeckId] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
   const [dropZone, setDropZone] = useState(null);
+  const viewportRef = useRef(null);
+  const [canvasScale, setCanvasScale] = useState(1);
   const activeDragRef = useRef(null);
   const dropHandledRef = useRef(false);
 
@@ -80,6 +84,43 @@ export default function DeckBuilderPage() {
     return () => {
       document.body.style.overflow = previousBodyOverflow;
       document.documentElement.style.overflow = previousHtmlOverflow;
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    const viewport = viewportRef.current;
+    if (!viewport) return undefined;
+
+    let frameId = 0;
+
+    const updateScale = () => {
+      const { width, height } = viewport.getBoundingClientRect();
+      if (!width || !height) return;
+
+      const nextScale = Math.min(width / CANVAS_WIDTH, height / CANVAS_HEIGHT);
+      setCanvasScale(nextScale);
+    };
+
+    updateScale();
+
+    if (typeof ResizeObserver === 'undefined') {
+      window.addEventListener('resize', updateScale);
+
+      return () => {
+        window.removeEventListener('resize', updateScale);
+      };
+    }
+
+    const observer = new ResizeObserver(() => {
+      cancelAnimationFrame(frameId);
+      frameId = requestAnimationFrame(updateScale);
+    });
+
+    observer.observe(viewport);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      observer.disconnect();
     };
   }, []);
 
@@ -298,303 +339,323 @@ export default function DeckBuilderPage() {
   const reserveDeckCards = selectedDeck?.reserveCards ?? [];
 
   return (
-    <div className="p-6 max-w-[1400px] mx-auto overflow-x-hidden lg:h-[calc(100dvh-4.5rem)] lg:overflow-hidden overscroll-none">
-      <div className="h-full grid grid-rows-[auto_minmax(0,1fr)] gap-3">
-      <div className="flex justify-between items-center">
-        <div className="flex items-center">
-          <h1 className="text-2xl lg:text-3xl font-bold text-white">Constructor de Mazos</h1>
-        </div>
-        <div className="flex justify-start lg:justify-end">
-          <button
-            onClick={createNewDeck}
-            className="bg-yellow-600 hover:bg-yellow-700 border border-yellow-500 text-white h-8 px-3 rounded-lg font-bold inline-flex items-center gap-1.5 text-sm leading-none"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            Nuevo Mazo
-          </button>
-        </div>
-      </div>
-
-      <div className="min-h-0 grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-3 items-stretch">
-        <div className="min-w-0 min-h-0 lg:h-full pr-1 grid grid-rows-[170px_260px_minmax(0,1fr)_84px] xl:grid-rows-[190px_300px_minmax(0,1fr)_90px] gap-3">
-          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-3 h-full overflow-hidden">
-            <div className="space-y-2">
-              {decks.map((deck) => (
-                <button
-                  key={deck.id}
-                  onClick={() => setSelectedDeckId(deck.id)}
-                  className={`w-full border px-3 py-2 text-left text-sm font-semibold transition-colors ${
-                    selectedDeckId === deck.id
-                      ? 'bg-yellow-600 text-white border-yellow-400'
-                      : 'bg-gray-700 text-white border-gray-600 hover:bg-gray-600'
-                  }`}
-                >
-                  {deck.name}
-                </button>
-              ))}
+    <div ref={viewportRef} className="h-full w-full min-h-0 overflow-hidden">
+      <div className="flex h-full w-full items-center justify-center overflow-hidden">
+        <div
+          className="h-[704px] w-[1280px] shrink-0 origin-center"
+          style={{ transform: `scale(${canvasScale})` }}
+        >
+          <div className="grid h-full grid-rows-[36px_minmax(0,1fr)] gap-3 p-6">
+            <div className="flex h-[36px] items-center justify-between gap-3">
+              <h1 className="text-[28px] font-bold leading-none text-white">Constructor de Mazos</h1>
+              <button
+                onClick={createNewDeck}
+                className="inline-flex h-8 items-center gap-1.5 rounded-lg border border-yellow-500 bg-yellow-600 px-3 text-sm font-bold leading-none text-white hover:bg-yellow-700"
+              >
+                <Plus className="h-3.5 w-3.5" />
+                Nuevo Mazo
+              </button>
             </div>
-          </section>
 
-          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-4 flex items-center justify-center h-full overflow-hidden">
-            <div className="w-[184px] aspect-[436/687] bg-gradient-to-br from-yellow-100 to-orange-200 border-2 border-yellow-500 rounded-lg p-4 text-center">
-              <div className="text-6xl mb-2">🥚</div>
-              <p className="text-base font-bold text-gray-900 line-clamp-2">{selectedCard?.nombre || 'Sin carta seleccionada'}</p>
-              <p className="text-sm text-gray-700 mt-1">{selectedCard?.serial || '---'}</p>
-              <p className="text-sm text-gray-800 mt-2">{typeText}</p>
-              <p className="text-sm text-gray-800">{levelText}</p>
-              {isCombatEggCategory(selectedCard?.categoria) && (
-                <div className="mt-2 text-sm font-bold text-gray-900">
-                  ATK {selectedCard?.ataque ?? '-'} / DEF {selectedCard?.defensa ?? '-'}
-                </div>
-              )}
-            </div>
-          </section>
+            <div className="grid min-h-0 grid-cols-[300px_920px] gap-3">
+              <div className="grid min-h-0 grid-rows-[106px_306px_minmax(0,1fr)_60px] gap-3">
+                <section className="h-full overflow-hidden rounded-xl border border-yellow-500 bg-gray-800 p-2">
+                  <div className="h-full space-y-1 overflow-y-auto overscroll-contain pr-1">
+                    {decks.map((deck) => (
+                      <button
+                        key={deck.id}
+                        onClick={() => setSelectedDeckId(deck.id)}
+                        className={`w-full rounded-lg border px-3 py-2 text-left text-sm font-semibold leading-tight transition-colors ${
+                          selectedDeckId === deck.id
+                            ? 'border-yellow-400 bg-yellow-600 text-white'
+                            : 'border-gray-600 bg-gray-700 text-white hover:bg-gray-600'
+                        }`}
+                      >
+                        {deck.name}
+                      </button>
+                    ))}
+                  </div>
+                </section>
 
-          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-4 h-full overflow-hidden">
-            <h3 className="text-sm font-bold text-yellow-400 mb-2">Texto de carta</h3>
-            <div className="h-[calc(100%-1.75rem)] overflow-y-auto overscroll-contain pr-1">
-              {selectedCard?.efecto && (
-                <p className="text-xs text-gray-200 leading-relaxed mb-2">
-                  <span className="font-bold text-yellow-300">Efecto: </span>
-                  {selectedCard.efecto}
-                </p>
-              )}
-              {selectedCard?.ambientacion && (
-                <p className="text-xs text-gray-300 italic leading-relaxed">
-                  <span className="font-bold not-italic text-yellow-300">Ambientación: </span>
-                  {selectedCard.ambientacion}
-                </p>
-              )}
-              {!selectedCard?.efecto && !selectedCard?.ambientacion && (
-                <p className="text-xs text-gray-400">Esta carta no tiene texto de efecto o ambientación.</p>
-              )}
-            </div>
-          </section>
+                <section className="flex h-full items-center justify-center overflow-hidden rounded-xl border border-yellow-500 bg-gray-800 p-2">
+                  <div className="w-[184px] aspect-[436/687] rounded-lg border-2 border-yellow-500 bg-gradient-to-br from-yellow-100 to-orange-200 p-4 text-center">
+                    <div className="mb-2 text-6xl">🥚</div>
+                    <p className="text-base font-bold text-gray-900 line-clamp-2">
+                      {selectedCard?.nombre || 'Sin carta seleccionada'}
+                    </p>
+                    <p className="mt-1 text-sm text-gray-700">{selectedCard?.serial || '---'}</p>
+                    <p className="mt-2 text-sm text-gray-800">{typeText}</p>
+                    <p className="text-sm text-gray-800">{levelText}</p>
+                    {isCombatEggCategory(selectedCard?.categoria) && (
+                      <div className="mt-2 text-sm font-bold text-gray-900">
+                        ATK {selectedCard?.ataque ?? '-'} / DEF {selectedCard?.defensa ?? '-'}
+                      </div>
+                    )}
+                  </div>
+                </section>
 
-          <section className="bg-gray-800 border border-yellow-500 rounded-xl h-full overflow-hidden">
-            <div className="grid grid-cols-2 h-1/2">
-              <button className="border-r border-gray-700 text-sm text-white bg-gray-700 hover:bg-gray-600">Guardar</button>
-              <button className="text-sm text-white bg-gray-700 hover:bg-gray-600">Paso Atrás</button>
-            </div>
-            <div className="grid grid-cols-2 h-1/2 border-t border-gray-700">
-              <button className="border-r border-gray-700 text-sm text-white bg-gray-700 hover:bg-gray-600">Eliminar</button>
-              <button className="text-sm text-white bg-gray-700 hover:bg-gray-600">Limpiar</button>
-            </div>
-          </section>
-        </div>
+                <section className="h-full overflow-hidden rounded-xl border border-yellow-500 bg-gray-800 p-3">
+                  <h3 className="mb-2 text-sm font-bold text-yellow-400">Texto de carta</h3>
+                  <div className="h-[calc(100%-1.75rem)] overflow-y-auto overscroll-contain pr-1">
+                    {selectedCard?.efecto && (
+                      <p className="mb-2 text-xs leading-relaxed text-gray-200">
+                        <span className="font-bold text-yellow-300">Efecto: </span>
+                        {selectedCard.efecto}
+                      </p>
+                    )}
+                    {selectedCard?.ambientacion && (
+                      <p className="text-xs italic leading-relaxed text-gray-300">
+                        <span className="not-italic font-bold text-yellow-300">Ambientación: </span>
+                        {selectedCard.ambientacion}
+                      </p>
+                    )}
+                    {!selectedCard?.efecto && !selectedCard?.ambientacion && (
+                      <p className="text-xs text-gray-400">Esta carta no tiene texto de efecto o ambientación.</p>
+                    )}
+                  </div>
+                </section>
 
-        <div className="min-w-0 min-h-0 lg:h-full grid grid-rows-[180px_minmax(0,1fr)_180px] xl:grid-rows-[200px_minmax(0,1fr)_200px] 2xl:grid-rows-[220px_minmax(0,1fr)_220px] gap-3">
-          <section className="bg-gray-800 border border-yellow-500 rounded-xl p-3 overflow-hidden h-full flex flex-col">
-            <div className="grid grid-cols-1 lg:grid-cols-[180px_minmax(0,1fr)] gap-3 h-full">
-              <div className="bg-gray-900/70 border border-gray-700 rounded-xl p-2 min-h-0 overflow-y-auto overscroll-contain">
-                <p className="text-[11px] font-bold uppercase tracking-wide text-yellow-300 mb-2">Categoria</p>
-                <div className="space-y-1.5">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedCategory('all')}
-                    className={`w-full text-left px-2 py-1 rounded-lg text-xs font-bold border transition-colors ${
-                      selectedCategory === 'all'
-                        ? 'bg-yellow-600 text-white border-yellow-400'
-                        : 'bg-gray-700 text-gray-200 border-gray-600 hover:bg-gray-600'
-                    }`}
-                  >
-                    Todas
-                  </button>
-                  {CATEGORY_ORDER.map((categoryKey) => (
-                    <button
-                      key={categoryKey}
-                      type="button"
-                      onClick={() => setSelectedCategory(categoryKey)}
-                      className={`w-full text-left px-2 py-1 rounded-lg text-xs font-bold border transition-colors ${
-                        selectedCategory === categoryKey
-                          ? 'bg-yellow-600 text-white border-yellow-400'
-                          : 'bg-gray-700 text-gray-200 border-gray-600 hover:bg-gray-600'
-                      }`}
-                    >
-                      {getCategoryLabel(categoryKey)}
+                <section className="h-full overflow-hidden rounded-xl border border-yellow-500 bg-gray-800">
+                  <div className="grid h-1/2 grid-cols-2">
+                    <button className="border-r border-gray-700 bg-gray-700 text-sm text-white hover:bg-gray-600">
+                      Guardar
                     </button>
-                  ))}
-                </div>
+                    <button className="bg-gray-700 text-sm text-white hover:bg-gray-600">Paso Atrás</button>
+                  </div>
+                  <div className="grid h-1/2 grid-cols-2 border-t border-gray-700">
+                    <button className="border-r border-gray-700 bg-gray-700 text-sm text-white hover:bg-gray-600">
+                      Eliminar
+                    </button>
+                    <button className="bg-gray-700 text-sm text-white hover:bg-gray-600">Limpiar</button>
+                  </div>
+                </section>
               </div>
 
-              <div className="min-w-0 min-h-0 flex-col">
-                <div className="flex gap-2 mb-2">
-                  <div className="relative flex-1">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
-                    <input
-                      type="text"
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      placeholder="Buscar cartas por nombre..."
-                      className="w-full pl-9 pr-3 py-1.5 bg-gray-900 border border-yellow-500 rounded-lg text-white placeholder:text-gray-400"
-                    />
-                  </div>
-                  <button className="bg-yellow-600 hover:bg-yellow-700 border border-yellow-500 h-8 px-3 rounded-lg font-bold inline-flex items-center leading-none text-sm text-white">Buscar</button>
-                </div>
-
-                <div className={`mb-2 grid grid-cols-2 xl:grid-cols-5 gap-2 ${!isCombatCategorySelected ? 'opacity-60' : ''}`}>
-                  <select
-                    value={combatClassFilter}
-                    onChange={(event) => setCombatClassFilter(event.target.value)}
-                    disabled={!isCombatCategorySelected}
-                    className="w-full px-2 py-1.5 bg-gray-900 border border-yellow-500 rounded-lg text-white text-xs disabled:cursor-not-allowed"
-                  >
-                    <option value="all">Clase: Todas</option>
-                    {combatClassOptions.map((className) => (
-                      <option key={className} value={className}>
-                        {className}
-                      </option>
-                    ))}
-                  </select>
-
-                  <select
-                    value={combatTypeFilter}
-                    onChange={(event) => setCombatTypeFilter(event.target.value)}
-                    disabled={!isCombatCategorySelected}
-                    className="w-full px-2 py-1.5 bg-gray-900 border border-yellow-500 rounded-lg text-white text-xs disabled:cursor-not-allowed"
-                  >
-                    <option value="all">Tipo: Todos</option>
-                    {combatTypeOptions.map((typeName) => (
-                      <option key={typeName} value={typeName}>
-                        {typeName}
-                      </option>
-                    ))}
-                  </select>
-
-                  <select
-                    value={combatLevelFilter}
-                    onChange={(event) => setCombatLevelFilter(event.target.value)}
-                    disabled={!isCombatCategorySelected}
-                    className="w-full px-2 py-1.5 bg-gray-900 border border-yellow-500 rounded-lg text-white text-xs disabled:cursor-not-allowed"
-                  >
-                    <option value="all">Nivel: Todos</option>
-                    {combatLevelOptions.map((levelValue) => (
-                      <option key={levelValue} value={levelValue}>
-                        Nivel {levelValue}
-                      </option>
-                    ))}
-                  </select>
-
-                  <input
-                    type="number"
-                    min="0"
-                    value={combatAttackMinFilter}
-                    onChange={(event) => setCombatAttackMinFilter(event.target.value)}
-                    disabled={!isCombatCategorySelected}
-                    placeholder="ATK min"
-                    className="w-full px-2 py-1.5 bg-gray-900 border border-yellow-500 rounded-lg text-white text-xs placeholder:text-gray-400 disabled:cursor-not-allowed"
-                  />
-
-                  <input
-                    type="number"
-                    min="0"
-                    value={combatDefenseMinFilter}
-                    onChange={(event) => setCombatDefenseMinFilter(event.target.value)}
-                    disabled={!isCombatCategorySelected}
-                    placeholder="DEF min"
-                    className="w-full px-2 py-1.5 bg-gray-900 border border-yellow-500 rounded-lg text-white text-xs placeholder:text-gray-400 disabled:cursor-not-allowed"
-                  />
-                </div>
-
-                {loading && <p className="text-gray-300 text-sm">Cargando cartas...</p>}
-                {!loading && error && <p className="text-red-300 text-sm">{error}</p>}
-
-                <div className="h-[125px] xl:h-auto xl:flex-1 min-h-0 overflow-hidden">
-                  {!loading && !error && filteredCards.length > 0 && (
-                    <div className="h-full overflow-x-auto overflow-y-hidden overscroll-contain pb-2">
-                      <div className="flex min-w-max items-start gap-2">
-                        {filteredCards.map((card) => (
-                          <DeckCardTile
-                            key={`search-${card.id}`}
-                            card={card}
-                            compact
-                            onClick={() => setSelectedCard(card)}
-                            onDragStart={beginDragFromSearch(card)}
-                            onDragEnd={() => {
-                              activeDragRef.current = null;
-                              dropHandledRef.current = false;
-                              clearDropZone();
-                            }}
-                          />
+              <div className="grid min-h-0 grid-rows-[200px_minmax(0,1fr)_190px] gap-3">
+                <section className="flex h-full flex-col overflow-hidden rounded-xl border border-yellow-500 bg-gray-800 p-2">
+                  <div className="grid h-full grid-cols-[180px_minmax(0,1fr)] gap-3">
+                    <div className="min-h-0 overflow-y-auto overscroll-contain rounded-xl border border-gray-700 bg-gray-900/70 p-2">
+                      <p className="mb-2 text-[11px] font-bold uppercase tracking-wide text-yellow-300">Categoria</p>
+                      <div className="space-y-1">
+                        <button
+                          type="button"
+                          onClick={() => setSelectedCategory('all')}
+                          className={`w-full rounded-lg border px-2 py-1 text-left text-xs font-bold transition-colors ${
+                            selectedCategory === 'all'
+                              ? 'border-yellow-400 bg-yellow-600 text-white'
+                              : 'border-gray-600 bg-gray-700 text-gray-200 hover:bg-gray-600'
+                          }`}
+                        >
+                          Todas
+                        </button>
+                        {CATEGORY_ORDER.map((categoryKey) => (
+                          <button
+                            key={categoryKey}
+                            type="button"
+                            onClick={() => setSelectedCategory(categoryKey)}
+                            className={`w-full rounded-lg border px-2 py-1 text-left text-xs font-bold transition-colors ${
+                              selectedCategory === categoryKey
+                                ? 'border-yellow-400 bg-yellow-600 text-white'
+                                : 'border-gray-600 bg-gray-700 text-gray-200 hover:bg-gray-600'
+                            }`}
+                          >
+                            {getCategoryLabel(categoryKey)}
+                          </button>
                         ))}
                       </div>
                     </div>
-                  )}
 
-                  {!loading && !error && filteredCards.length === 0 && (
-                    <p className="text-gray-400 text-sm">No se encontraron cartas con ese nombre.</p>
-                  )}
-                </div>
+                    <div className="flex min-w-0 min-h-0 flex-col">
+                      <div className="mb-2 flex gap-2">
+                        <div className="relative flex-1">
+                          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                          <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="Buscar cartas por nombre..."
+                            className="w-full rounded-lg border border-yellow-500 bg-gray-900 py-1.5 pl-9 pr-3 text-white placeholder:text-gray-400"
+                          />
+                        </div>
+                        <button className="inline-flex h-8 items-center rounded-lg border border-yellow-500 bg-yellow-600 px-3 text-sm font-bold leading-none text-white hover:bg-yellow-700">
+                          Buscar
+                        </button>
+                      </div>
+
+                      <div className={`mb-2 grid grid-cols-5 gap-2 ${!isCombatCategorySelected ? 'opacity-60' : ''}`}>
+                        <select
+                          value={combatClassFilter}
+                          onChange={(event) => setCombatClassFilter(event.target.value)}
+                          disabled={!isCombatCategorySelected}
+                          className="w-full rounded-lg border border-yellow-500 bg-gray-900 px-2 py-1.5 text-xs text-white disabled:cursor-not-allowed"
+                        >
+                          <option value="all">Clase: Todas</option>
+                          {combatClassOptions.map((className) => (
+                            <option key={className} value={className}>
+                              {className}
+                            </option>
+                          ))}
+                        </select>
+
+                        <select
+                          value={combatTypeFilter}
+                          onChange={(event) => setCombatTypeFilter(event.target.value)}
+                          disabled={!isCombatCategorySelected}
+                          className="w-full rounded-lg border border-yellow-500 bg-gray-900 px-2 py-1.5 text-xs text-white disabled:cursor-not-allowed"
+                        >
+                          <option value="all">Tipo: Todos</option>
+                          {combatTypeOptions.map((typeName) => (
+                            <option key={typeName} value={typeName}>
+                              {typeName}
+                            </option>
+                          ))}
+                        </select>
+
+                        <select
+                          value={combatLevelFilter}
+                          onChange={(event) => setCombatLevelFilter(event.target.value)}
+                          disabled={!isCombatCategorySelected}
+                          className="w-full rounded-lg border border-yellow-500 bg-gray-900 px-2 py-1.5 text-xs text-white disabled:cursor-not-allowed"
+                        >
+                          <option value="all">Nivel: Todos</option>
+                          {combatLevelOptions.map((levelValue) => (
+                            <option key={levelValue} value={levelValue}>
+                              Nivel {levelValue}
+                            </option>
+                          ))}
+                        </select>
+
+                        <input
+                          type="number"
+                          min="0"
+                          value={combatAttackMinFilter}
+                          onChange={(event) => setCombatAttackMinFilter(event.target.value)}
+                          disabled={!isCombatCategorySelected}
+                          placeholder="ATK min"
+                          className="w-full rounded-lg border border-yellow-500 bg-gray-900 px-2 py-1.5 text-xs text-white placeholder:text-gray-400 disabled:cursor-not-allowed"
+                        />
+
+                        <input
+                          type="number"
+                          min="0"
+                          value={combatDefenseMinFilter}
+                          onChange={(event) => setCombatDefenseMinFilter(event.target.value)}
+                          disabled={!isCombatCategorySelected}
+                          placeholder="DEF min"
+                          className="w-full rounded-lg border border-yellow-500 bg-gray-900 px-2 py-1.5 text-xs text-white placeholder:text-gray-400 disabled:cursor-not-allowed"
+                        />
+                      </div>
+
+                      {loading && <p className="mb-2 text-sm text-gray-300">Cargando cartas...</p>}
+                      {!loading && error && <p className="mb-2 text-sm text-red-300">{error}</p>}
+
+                      <div className="flex-1 min-h-0 overflow-hidden">
+                        {!loading && !error && filteredCards.length > 0 && (
+                          <div className="h-full overflow-x-auto overflow-y-hidden overscroll-contain pb-1">
+                            <div className="flex min-w-max items-start gap-2 pr-1">
+                              {filteredCards.map((card) => (
+                                <DeckCardTile
+                                  key={`search-${card.id}`}
+                                  card={card}
+                                  compact
+                                  onClick={() => setSelectedCard(card)}
+                                  onDragStart={beginDragFromSearch(card)}
+                                  onDragEnd={() => {
+                                    activeDragRef.current = null;
+                                    dropHandledRef.current = false;
+                                    clearDropZone();
+                                  }}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {!loading && !error && filteredCards.length === 0 && (
+                          <div className="flex h-full items-start">
+                            <p className="text-sm text-gray-400">No se encontraron cartas con ese nombre.</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section
+                  onDragOver={handleZoneDragOver('main')}
+                  onDrop={handleDropInZone('main')}
+                  onDragLeave={clearDropZone}
+                  className={`h-full overflow-hidden rounded-xl border p-3 transition-colors ${
+                    dropZone === 'main' ? 'border-green-400 bg-gray-700/80' : 'border-yellow-500 bg-gray-800'
+                  }`}
+                >
+                  <div className="flex h-full min-h-0 flex-col">
+                    {selectedDeck && (
+                      <p className="mb-3 text-sm text-gray-300">
+                        Mazo principal: {mainDeckCards.length}/{MAIN_DECK_LIMIT}
+                      </p>
+                    )}
+
+                    <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain pr-1">
+                      <div className="grid grid-cols-9 gap-2 content-start">
+                        {mainDeckCards.map((card) => (
+                          <DeckCardTile
+                            key={card.deckEntryId}
+                            card={card}
+                            onClick={() => setSelectedCard(card)}
+                            onDragStart={beginDragFromDeck(card, 'main')}
+                            onDragEnd={handleDeckDragEnd('main', card.deckEntryId)}
+                            selected={selectedCard?.deckEntryId === card.deckEntryId}
+                          />
+                        ))}
+                      </div>
+
+                      {selectedDeck && mainDeckCards.length === 0 && (
+                        <p className="mt-2 text-sm text-gray-400">
+                          Mazo principal vacío. Arrastra cartas desde la búsqueda o desde la reserva.
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </section>
+
+                <section
+                  onDragOver={handleZoneDragOver('reserve')}
+                  onDrop={handleDropInZone('reserve')}
+                  onDragLeave={clearDropZone}
+                  className={`h-full overflow-hidden rounded-xl border p-3 transition-colors ${
+                    dropZone === 'reserve' ? 'border-green-400 bg-gray-700/80' : 'border-yellow-500 bg-gray-800'
+                  }`}
+                >
+                  <div className="flex h-full min-h-0 flex-col">
+                    <div className="mb-2 text-sm text-gray-300">
+                      Librería de reserva: {reserveDeckCards.length}/{RESERVE_DECK_LIMIT}
+                    </div>
+                    <div className="h-[140px] overflow-x-auto overflow-y-hidden overscroll-contain">
+                      {reserveDeckCards.length > 0 ? (
+                        <div className="flex min-w-max gap-2 pr-1">
+                          {reserveDeckCards.map((card) => (
+                            <DeckCardTile
+                              key={card.deckEntryId}
+                              card={card}
+                              onClick={() => setSelectedCard(card)}
+                              onDragStart={beginDragFromDeck(card, 'reserve')}
+                              onDragEnd={handleDeckDragEnd('reserve', card.deckEntryId)}
+                            />
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-sm text-gray-400">
+                          Librería de reserva vacía. Suelta cartas aquí para reservarlas.
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </section>
               </div>
             </div>
-          </section>
-
-          <section
-            onDragOver={handleZoneDragOver('main')}
-            onDrop={handleDropInZone('main')}
-            onDragLeave={clearDropZone}
-            className={`bg-gray-800 border rounded-xl p-3 overflow-hidden h-full transition-colors ${
-              dropZone === 'main' ? 'border-green-400 bg-gray-700/80' : 'border-yellow-500'
-            }`}
-          >
-            <div className="h-full overflow-y-auto overscroll-contain pr-1">
-              {selectedDeck && (
-                <p className="text-gray-300 text-sm mb-3">
-                  Mazo principal: {mainDeckCards.length}/{MAIN_DECK_LIMIT}
-                </p>
-              )}
-
-              <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-8 xl:grid-cols-10 gap-2 content-start">
-                {mainDeckCards.map((card) => (
-                  <DeckCardTile
-                    key={card.deckEntryId}
-                    card={card}
-                    onClick={() => setSelectedCard(card)}
-                    onDragStart={beginDragFromDeck(card, 'main')}
-                    onDragEnd={handleDeckDragEnd('main', card.deckEntryId)}
-                    selected={selectedCard?.deckEntryId === card.deckEntryId}
-                  />
-                ))}
-              </div>
-
-              {selectedDeck && mainDeckCards.length === 0 && (
-                <p className="text-gray-400 text-sm mt-2">
-                  Mazo principal vacío. Arrastra cartas desde la búsqueda o desde la reserva.
-                </p>
-              )}
-            </div>
-          </section>
-
-          <section
-            onDragOver={handleZoneDragOver('reserve')}
-            onDrop={handleDropInZone('reserve')}
-            onDragLeave={clearDropZone}
-            className={`border rounded-xl p-3 h-full overflow-hidden transition-colors ${
-              dropZone === 'reserve' ? 'border-green-400 bg-gray-700/80' : 'bg-gray-800 border-yellow-500'
-            }`}
-          >
-            <div className="mb-2 text-gray-300 text-sm">
-              Librería de reserva: {reserveDeckCards.length}/{RESERVE_DECK_LIMIT}
-            </div>
-            <div className="w-full overflow-x-auto h-[95px] xl:h-[120px] 2xl:h-[150px]">
-              <div className="flex gap-2 min-w-max">
-                {reserveDeckCards.map((card) => (
-                  <DeckCardTile
-                    key={card.deckEntryId}
-                    card={card}
-                    onClick={() => setSelectedCard(card)}
-                    onDragStart={beginDragFromDeck(card, 'reserve')}
-                    onDragEnd={handleDeckDragEnd('reserve', card.deckEntryId)}
-                  />
-                ))}
-              </div>
-              {reserveDeckCards.length === 0 && (
-                <p className="text-gray-400 text-sm mt-2">Librería de reserva vacía. Suelta cartas aquí para reservarlas.</p>
-              )}
-            </div>
-          </section>
+          </div>
         </div>
-      </div>
       </div>
     </div>
   );
