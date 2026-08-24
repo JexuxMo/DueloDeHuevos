@@ -19,7 +19,7 @@ export default function DeckCardTile({
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
       className={`
-        ${compact ? 'w-[62px]' : 'w-[87px]'} aspect-[436/687] flex-none shrink-0
+        ${compact ? 'w-[42px]' : 'w-[82px]'} aspect-[436/687] flex-none shrink-0
         rounded-lg border-2 p-1 text-left
         transition-all hover:brightness-110
         bg-gradient-to-br from-yellow-100 to-orange-200
