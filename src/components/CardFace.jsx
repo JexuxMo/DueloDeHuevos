@@ -10,6 +10,11 @@ const templateModules = import.meta.glob('../assets/templates/*.png', {
   import: 'default',
 });
 
+const rankModules = import.meta.glob('../assets/icons/rank*.png', {
+  eager: true,
+  import: 'default',
+});
+
 const artBySerial = Object.entries(artModules).reduce((artMap, [path, source]) => {
   const serial = path.split('/').pop()?.replace(/\.png$/, '');
   if (serial) artMap[serial] = source;
@@ -20,6 +25,12 @@ const templateByName = Object.entries(templateModules).reduce((templateMap, [pat
   const name = path.split('/').pop()?.replace(/\.png$/, '');
   if (name) templateMap[name] = source;
   return templateMap;
+}, {});
+
+const rankByLevel = Object.entries(rankModules).reduce((rankMap, [path, source]) => {
+  const level = Number(path.match(/rank(\d+)\.png$/)?.[1]);
+  if (Number.isInteger(level) && level > 0) rankMap[level] = source;
+  return rankMap;
 }, {});
 
 const combatTemplateByClass = {
@@ -54,6 +65,7 @@ export default function CardFace({ card, className = '' }) {
   const isCombatEgg = isCombatEggCategory(card.categoria);
   const cardArt = getCardArtBySerial(card.serial);
   const cardTemplate = getCardTemplate(card);
+  const rankImage = rankByLevel[card.nivel];
   const detailText = [card.efecto, card.ambientacion].filter(Boolean);
 
   return (
@@ -72,7 +84,7 @@ export default function CardFace({ card, className = '' }) {
       <img src={cardTemplate} alt="" className="pointer-events-none absolute inset-0 z-10 h-full w-full" draggable={false} />
 
       <div className="pointer-events-none absolute inset-0 z-20 font-sans text-back">
-        <p className="absolute left-[5%] top-[11.5%] w-[65%] text-center text-[6.1cqw] leading-none [text-shadow:0_1px_0_rgb(255_255_255_/_0.7)] line-clamp-2 text-white">
+        <p className="absolute left-[5%] top-[11.5%] w-[65%] text-center text-[6.1cqw] leading-none line-clamp-2 font-bold text-white">
           {card.nombre}
         </p>
 
@@ -80,8 +92,10 @@ export default function CardFace({ card, className = '' }) {
           <span className="max-w-[57%] truncate">{isCombatEgg ? card.tipo : getCategoryLabel(card.categoria)}</span>
         </div>
 
-        <div className="absolute left-[10%] top-[5%] items-center justify-between gap-[2%] text-[5cqw] font-bold leading-none">
-          {isCombatEgg ? <span>NV {card.nivel ?? '-'}</span> : null } {/*<span>{card.clase}</span>}*/}
+        <div className="absolute left-[10%] top-[3%] items-center justify-between gap-[2%] text-[5cqw] font-bold leading-none">
+          {isCombatEgg && rankImage ? (
+            <img src={rankImage} alt={`Rango ${card.nivel}`} className="h-[10cqw] w-auto object-contain" draggable={false} />
+          ) : null}
         </div>
 
         {isCombatEgg && (

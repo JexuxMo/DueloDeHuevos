@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Book, Home, LogOut, Menu, ShoppingBag, Swords, Trophy, User, X } from 'lucide-react';
 import { useAuth } from '../context/useAuth';
+import ddhLogo from '../assets/icons/ddh_logo.png';
 
 const NavButton = ({ currentPage, onNavigate, icon, label, page }) => {
   const IconComponent = icon;
@@ -27,7 +28,7 @@ export default function Navigation({ currentPage, onNavigate, onLogout }) {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-2">
-            <div className="text-3xl">🥚</div>
+            <img src={ddhLogo} alt="Duelo de Huevos" className="w-12 h-12 object-contain" />
             <span className="text-xl font-bold text-white">Duelo de Huevos</span>
           </div>
 

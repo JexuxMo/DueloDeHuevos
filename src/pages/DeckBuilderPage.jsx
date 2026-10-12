@@ -283,6 +283,20 @@ export default function DeckBuilderPage() {
     });
   };
 
+  const handleClearDeck = () => {
+    if (!selectedDeckId) return;
+
+    setDecks((prev) =>
+      prev.map((deck) =>
+        deck.id === selectedDeckId
+          ? { ...deck, mainCards: [], reserveCards: [] }
+          : deck,
+      ),
+    );
+    setSelectedCard(null);
+    clearDropZone();
+  };
+
   const handleZoneDragOver = (zone) => (event) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = 'move';
@@ -565,7 +579,13 @@ export default function DeckBuilderPage() {
                       <Trash2 className="h-3.5 w-3.5" />
                       Eliminar
                     </button>
-                    <button className="bg-gray-700 text-sm text-white hover:bg-gray-600">Limpiar</button>
+                    <button
+                      onClick={handleClearDeck}
+                      disabled={!selectedDeck || (mainDeckCards.length === 0 && reserveDeckCards.length === 0)}
+                      className="bg-gray-700 text-sm text-white hover:bg-gray-600 disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      Limpiar
+                    </button>
                   </div>
                 </section>
               </div>

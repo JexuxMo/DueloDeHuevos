@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../context/useAuth';
+import ddhLogo from '../assets/icons/ddh_logo.png';
+import ddhLogo2 from '../assets/ddh_logo2.png';
 
 export default function LoginPage({ onNavigate }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -40,12 +42,19 @@ export default function LoginPage({ onNavigate }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 via-yellow-200 to-slate-100 flex items-center justify-center p-4">
-      <div className="max-w-md w-full">
+    <div className="relative isolate flex min-h-screen items-center justify-center overflow-hidden bg-slate-950 p-4">
+      <div
+        className="absolute inset-0 -z-20 animate-mosaic-background bg-repeat bg-[length:12rem_auto] opacity-30 motion-reduce:animate-none"
+        style={{ backgroundImage: `url(${ddhLogo2})` }}
+        aria-hidden="true"
+      />
+      <div className="absolute inset-0 -z-10 bg-slate-950/70" aria-hidden="true" />
+
+      <div className="relative z-10 w-full max-w-md">
         <div className="bg-black bg-opacity-50 backdrop-blur-lg rounded-2xl p-8 border border-yellow-500">
           <div className="text-center mb-8">
-            <div className="inline-block p-4 bg-yellow-500 rounded-full mb-4">
-              <div className="text-6xl">🥚</div>
+            <div className="inline-block p-4 mb-4">
+              <img src={ddhLogo} alt="Duelo de Huevos" className=" h-[10cqw] w-auto object-contain" />
             </div>
             <h1 className="text-4xl font-bold text-white mb-2">Duelo de Huevos</h1>
             <p className="text-yellow-300">¡TCG Online!</p>
