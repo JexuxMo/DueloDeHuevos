@@ -1,7 +1,8 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Plus, Search, Edit, Save, X, Trash2 } from 'lucide-react';
 import DeckCardTile from '../components/DeckCardTile';
-import { CATEGORY_ORDER, getCategoryLabel, isCombatEggCategory } from '../utils/cardCategory';
+import CardFace from '../components/CardFace';
+import { CATEGORY_ORDER, getCategoryLabel } from '../utils/cardCategory';
 import { parseCardsPayload } from '../types/card';
 import { loadDecks, saveSingleDeck } from '../utils/deckStorage';
 import { useAuth } from '../context/useAuth';
@@ -411,13 +412,6 @@ export default function DeckBuilderPage() {
     if (payload?.card) setSelectedCard(payload.card);
   };
 
-  const levelText = selectedCard?.nivel ? `Nivel ${selectedCard.nivel}` : 'Sin nivel';
-  const typeText = selectedCard
-    ? selectedCard.tipo !== 'N/A'
-      ? selectedCard.tipo
-      : getCategoryLabel(selectedCard.categoria)
-    : 'Sin tipo';
-
   const mainDeckCards = selectedDeck?.mainCards ?? [];
   const reserveDeckCards = selectedDeck?.reserveCards ?? [];
 
@@ -508,20 +502,13 @@ export default function DeckBuilderPage() {
                 </section>
 
                 <section className="flex h-full items-center justify-center overflow-hidden rounded-xl border border-yellow-500 bg-gray-800 p-2">
-                  <div className="w-[184px] aspect-[436/687] rounded-lg border-2 border-yellow-500 bg-gradient-to-br from-yellow-100 to-orange-200 p-4 text-center">
-                    <div className="mb-2 text-6xl">🥚</div>
-                    <p className="text-base font-bold text-gray-900 line-clamp-2">
-                      {selectedCard?.nombre || 'Sin carta seleccionada'}
-                    </p>
-                    <p className="mt-1 text-sm text-gray-700">{selectedCard?.serial || '---'}</p>
-                    <p className="mt-2 text-sm text-gray-800">{typeText}</p>
-                    <p className="text-sm text-gray-800">{levelText}</p>
-                    {isCombatEggCategory(selectedCard?.categoria) && (
-                      <div className="mt-2 text-sm font-bold text-gray-900">
-                        ATK {selectedCard?.ataque ?? '-'} / DEF {selectedCard?.defensa ?? '-'}
-                      </div>
-                    )}
-                  </div>
+                  {selectedCard ? (
+                    <CardFace card={selectedCard} className="w-[184px] rounded-lg border-2 border-yellow-500" />
+                  ) : (
+                    <div className="flex w-[184px] aspect-[816/1287] items-center justify-center rounded-lg border-2 border-dashed border-gray-500 text-center text-sm text-gray-400">
+                      Selecciona una carta
+                    </div>
+                  )}
                 </section>
 
                 <section className="h-full overflow-hidden rounded-xl border border-yellow-500 bg-gray-800 p-3">
