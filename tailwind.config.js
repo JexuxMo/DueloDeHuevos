@@ -13,7 +13,7 @@ export default {
         },
       },
       animation: {
-        'mosaic-background': 'mosaicBackground 40s linear infinite',
+        'mosaic-background': 'mosaicBackground 12s linear infinite',
       },
     },
   },
